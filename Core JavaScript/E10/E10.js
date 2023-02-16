@@ -1,5 +1,3 @@
-
-
 const printTree = (tree, order, array) => {
     const arrayTree = convertToArray(tree);
 
