@@ -5,7 +5,6 @@ test("Symmetric", () => {
     const arr = [];
 
     const isSymmetric = printTree(bTree, arr);
-    console.log(isSymmetric)
 
     expect(isSymmetric).toBe(true);
 });
