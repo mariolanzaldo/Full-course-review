@@ -1,17 +1,17 @@
 function set(obj, path, value) {
 
-    const pList = path.split('.');
+    const propertiesToAdd = path.split('.');
 
-    const key = pList.pop();
+    const lastProp = propertiesToAdd.pop();
 
 
-    const pointer = pList.reduce((acc, current) => {
+    const pointer = propertiesToAdd.reduce((acc, current) => {
         if (!acc[current]) acc[current] = {};
 
         return acc[current];
     }, obj);
 
-    pointer[key] = value;
+    pointer[lastProp] = value;
 
     return obj;
 }
