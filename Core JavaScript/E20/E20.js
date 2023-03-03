@@ -1,43 +1,44 @@
-(function () {
-    const button = document.querySelector(".button");
-    const container = document.querySelector(".triangle");
-    const template = document.querySelector(".template").content;
+const container = document.querySelector(".container");
+const template = document.querySelector(".template").content;
+const button = document.querySelector(".button");
 
-    const seed = document.createDocumentFragment();
-    const seedClone = template.cloneNode(true);
-    seed.appendChild(seedClone);
-    container.appendChild(seed);
+button.addEventListener('click', () => {
+    const numberInput = document.querySelector('.numberInput');
 
-    button.addEventListener('click', () => {
-        const numberInput = document.querySelector('.numberInput');
+    const deep = numberInput.value;
+    makeTriangle(deep);
+});
 
-        const deep = numberInput.value;
-        triangle(deep)(addDivs);
+const addDivs = (root) => {
+    const emptyDivs = [...root.querySelectorAll(".fill:empty")];
+
+    emptyDivs.forEach((div) => {
+        const fragment = document.createDocumentFragment();
+
+        const clone = template.cloneNode(true);
+        fragment.appendChild(clone);
+
+        div.appendChild(fragment);
     });
 
-    const addDivs = () => {
-        const emptyDivs = [...document.querySelectorAll(".fill:empty")];
+};
 
-        emptyDivs.map((div) => {
-            const fragment = document.createDocumentFragment();
+const triangle = (n) => {
 
-            const clone = template.cloneNode(true);
-            fragment.appendChild(clone);
+    return ((fn) => {
+        if (n > 0) {
+            fn();
+            triangle(n - 1)(fn);
+        }
+    })
+};
 
-            div.appendChild(fragment);
-        });
+const makeTriangle = (n) => {
+    const containerTemplate = document.querySelector(".containerTemplate").content.firstElementChild;
 
-    };
+    const containerClone = containerTemplate.cloneNode(true);
 
-    const triangle = (n) => {
+    triangle(n)(() => addDivs(containerClone));
 
-        return ((fn) => {
-            if (n > 0) {
-                fn();
-                triangle(n - 1)(fn);
-            }
-        })
-    };
-})();
-
-
+    container.replaceChildren(containerClone);
+};
