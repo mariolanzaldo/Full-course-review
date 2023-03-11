@@ -1,0 +1,397 @@
+@import url("https://fonts.googleapis.com/css?family=Tangerine");
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+}
+
+.pageLogo {
+    background: -3px -3px no-repeat url("./Images/logo.jpg") rgba(0, 0, 0, 255);
+    background-size: 140px 135px;
+
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    align-self: center;
+}
+
+.logoText {
+    padding: 1.5em;
+    width: 40px;
+    text-align: center;
+    text-transform: capitalize;
+    color: white;
+    font-family: 'Tangerine', cursive;
+    font-size: 17px;
+    font-weight: 500;
+    text-shadow: 0.5px 0.5px 0.5px black;
+}
+
+.barSections {
+    display: flex;
+    padding: 0;
+    justify-content: space-around;
+}
+
+a {
+    text-align: left;
+    text-decoration: none;
+    width: 100%;
+    color: rgba(38, 183, 160, 0.8);
+    font-weight: 600;
+}
+
+li {
+    list-style-type: none;
+}
+
+.barIcon {
+    width: 25px;
+}
+
+.latestTweet,
+.latestFacebook {
+    display: none;
+}
+
+.carrousel {
+    width: 100%;
+
+}
+
+.carrousel-main-caption {
+    background-color: white;
+    font-weight: 900;
+}
+
+.carrousel-secondary-caption {
+    background-color: black;
+    color: white;
+    font-family: 'Tangerine', cursive;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.carrousel-image {
+    background: center/100% no-repeat url("./Images/books.jpg") rgba(0, 0, 0, 255);
+    width: 100%;
+}
+
+.carrousel-list {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    width: 95%;
+}
+
+.carrousel-list li {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: rgba(235, 247, 245, 255);
+    color: rgba(43, 165, 145, 0.8);
+    border-right: 1px solid rgba(209, 235, 231, 255);
+    width: 100%;
+}
+
+.newsletter-main img {
+    width: 40px;
+}
+
+footer {
+    margin: 1em;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px dashed black;
+}
+
+footer {
+    font-size: 13px;
+}
+
+.footer-info ul {
+    /* margin: 20px 0 0 0; */
+    margin: 0;
+    padding: 0;
+    width: 45vw;
+    display: flex;
+    /* margin-bottom: 30px; */
+}
+
+.footer-info ul li {
+    margin-right: 1em;
+}
+
+.socialMedia-icons {
+    display: flex;
+    filter: grayscale(100%);
+}
+
+@media (min-width: 1024px) {
+    .root {
+        display: grid;
+        grid-template-columns: 250px auto;
+        /* grid-template-columns: [first] 150px repeat((auto-fit, 100px)); */
+        /* grid-template-columns: 300px auto; */
+        /* grid-template-columns: repeat((auto-fit, 1fr)); */
+    }
+
+    .navbar {
+        margin: 2px;
+        /* grid-column: 1/2; */
+        /* grid-column: 1 / 2; */
+        grid-row: 1 / 4;
+        /* width: 18vw; */
+        width: 100%;
+    }
+
+    .barSections {
+        display: grid;
+        grid-template-rows: repeat(5, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+        justify-items: left;
+        /* border: 1px solid red; */
+    }
+
+    .navbarItem {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        /* border: 1px solid red; */
+    }
+
+    .latestTweet {
+        display: block;
+        margin: 0;
+        font-family: 'Tangerine', cursive;
+        font-size: 15px;
+        /* border: 1px solid red; */
+    }
+
+    .latestTweet-title {
+        border-bottom: 2px dashed black;
+        font-family: 'Times New Roman', Times, serif;
+        text-transform: uppercase;
+    }
+
+    .latestTweet-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        margin-left: 2px;
+        background-color: white;
+        width: 65%;
+        text-decoration: none;
+        text-align: center;
+        font-size: 15px;
+        border-radius: 5px;
+        color: rgba(38, 183, 160, 0.8);
+        border: 2px solid rgba(93, 93, 99, 1);
+    }
+
+    .latestTweet-button>img {
+        width: 20px;
+        height: 20px;
+        filter: hue-rotate(-33deg);
+    }
+
+    .latestTweet p q {
+        font-size: 25px;
+        font-weight: 200;
+    }
+
+    .latestFacebook {
+        display: block;
+        margin: 10px 0 0 0;
+    }
+
+    .latestFacebook-title {
+        border-bottom: 2px dashed black;
+        font-family: 'Times New Roman', Times, serif;
+        text-transform: uppercase;
+    }
+
+    .latestFacebook-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        margin-left: 2px;
+        background-color: white;
+        width: 65%;
+        text-decoration: none;
+        text-align: center;
+        font-size: 15px;
+        border-radius: 5px;
+        color: rgba(38, 183, 160, 0.8);
+        border: 2px solid rgba(93, 93, 99, 1);
+    }
+
+    .latestFacebook-button>img {
+        width: 18px;
+        height: 18px;
+        filter: hue-rotate(-33deg);
+    }
+
+    .carrousel {
+        grid-column: 2/5;
+        grid-row: 1;
+        /* border: 2px solid blue; */
+        width: 100%;
+        height: auto;
+    }
+
+    .carrousel-image {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: left;
+        background: center/100% no-repeat url("./Images/books.jpg") rgba(0, 0, 0, 255);
+        /* width: 100%; */
+        height: 270px;
+    }
+
+    .carrousel-main-caption {
+        display: flex;
+        background-color: white;
+        font-weight: 900;
+        font-size: 20px;
+        width: 20%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        height: 5vh;
+    }
+
+    .carrousel-secondary-caption {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        /* padding-left: 5px; */
+        height: 3.5vh;
+        background-color: black;
+        color: white;
+        font-family: 'Tangerine', cursive;
+        font-size: 20px;
+        font-weight: 400;
+        width: 28%;
+    }
+
+    .carrousel-list {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .carrousel-list li {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 16px;
+        background-color: rgba(235, 247, 245, 1);
+        color: rgba(43, 165, 145, 0.8);
+        border-right: 1px solid rgba(209, 235, 231, 1);
+        width: 100%;
+        height: auto;
+    }
+
+    .carrousel-list li:hover {
+        background-color: rgba(187, 217, 212, 1);
+        cursor: pointer;
+    }
+
+    .carrousel-list li a {
+        margin: 5px 0 3px 25px;
+        padding: 0;
+        font-size: 20px;
+    }
+
+    .carrousel-list li p {
+        margin: 1px 0 3px 25px;
+        padding: 0;
+        font-family: 'Tangerine', coursive;
+        font-size: 18px;
+    }
+
+    .content {
+        grid-column: 2 / 5;
+        grid-auto-rows: minmax((100px, auto));
+        width: 100%;
+    }
+
+    .newsletter-main {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        margin: 0 0 0 5px;
+        height: 60px;
+        border-top: 2px dashed black;
+        border-bottom: 2px dashed black;
+    }
+
+    .newsletter-main img {
+        margin: 0 0 0 20px;
+        /* height: auto; */
+    }
+
+    .newsletter-main p {
+        font-family: 'Tangerine', cursive;
+        font-size: 25px;
+        width: 50%;
+    }
+
+    .newsletter-form {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        width: 50%;
+        height: 50px;
+    }
+
+    .newsletter-form input {
+        width: 300px;
+        height: 20px;
+    }
+
+    .newsletter-form input::placeholder {
+        color: rgba(182, 182, 182, 0.893);
+    }
+
+    .newsletter-form button {
+        background-color: rgba(246, 246, 246, 1);
+        color: rgba(216, 216, 216, 1);
+        border: 1px solid rgba(215, 215, 215, 0.9);
+        font-size: 15px;
+        width: 120px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+
+    .footer-info ul {
+        margin: 20px 0 0 0;
+    }
+
+    .footer-info ul li {
+        margin-right: 0.3em;
+    }
+}
