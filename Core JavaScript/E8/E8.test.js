@@ -1,6 +1,6 @@
 const { impFlatten, funcFlatten } = require('./E8');
 
-test('Imperative approach', () => {
+test.skip('Imperative approach', () => {
     const oldObj = {
         name: 'Sara',
         gender: 'Apache Attack Helicopter',

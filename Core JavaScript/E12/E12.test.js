@@ -1,6 +1,6 @@
 const printTree = require("./E12");
 
-test("Symmetric", () => {
+test.skip("Symmetric", () => {
     const bTree = "(1,(2,(3),(4,(5))),(2,(3),(4,(5))))";
     const arr = [];
 

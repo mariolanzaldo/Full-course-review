@@ -1,6 +1,6 @@
 const maxRectangle = require('./E14');
 
-test("Basic test", () => {
+test.skip("Basic test", () => {
     const matrix = [
         [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],

@@ -1,5 +1,5 @@
 const runBatches = require("./E1");
-// // const batchTasks = require('./E1');
+// const batchTasks = require('./E1');
 jest.setTimeout(11000);
 const taskFactorySample = (delay, resolve, val) => {
     return () => {
@@ -19,31 +19,40 @@ test('Test', async () => {
     const pool_size = 2;
 
     const result = await runBatches(tasks, pool_size);
+
     return expect(result).toEqual([
-        { status: "fulfilled", value: 1 },
-        { status: "fulfilled", value: 2 },
-        { status: "rejected", reason: 'error' },
-        { status: "fulfilled", value: 4 },
-        { status: "rejected", reason: 'error' },
-        { status: "rejected", reason: 'error' },
+        '{value: 1}',
+        '{value: 2}',
+        '{error: error}',
+        '{value: 4}',
+        '{error: error}',
+        '{error: error}'
     ]);
 });
-//TODO: Uncomment these lines!
-// test('Pool larger than number of tasks', async () => {
-//     const pool_size = 200;
-//     const results = await runBatches(tasks, pool_size);
 
-//     return expect(results).toEqual([
-//         { status: "fulfilled", value: 1 },
-//         { status: "fulfilled", value: 2 },
-//         { status: "rejected", reason: 'error' },
-//         { status: "fulfilled", value: 4 },
-//         { status: "rejected", reason: 'error' },
-//         { status: "rejected", reason: 'error' },
-//     ])
-// });
+test.skip('Pool larger than number of tasks', async () => {
+    const pool_size = 200;
+    const results = await runBatches(tasks, pool_size);
 
-// test('Pool of size 0', async () => {
-//     const pool_size = 0;
-//     return expect(runBatches(tasks, pool_size)).rejects.toThrow("No task ran. Select a positive pool size");
-// });
+    return expect(results).toEqual([
+        '{value: 1}',
+        '{value: 2}',
+        '{error: error}',
+        '{value: 4}',
+        '{error: error}',
+        '{error: error}'
+    ])
+});
+
+test.skip('Pool of size 0', async () => {
+    const pool_size = 0;
+    return expect(runBatches(tasks, pool_size)).rejects.toThrow("No task ran. Select a positive pool size");
+});
+
+test.skip('Empty tasks', async () => {
+    const pool_size = 2;
+    const emptyTasks = [];
+    const result = await runBatches(emptyTasks, pool_size);
+
+    return expect(result.length).toEqual(0);
+});

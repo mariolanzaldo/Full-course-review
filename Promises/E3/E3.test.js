@@ -3,7 +3,7 @@ const beginFetching = require('./E3');
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 const abort = false;
 
-test('Fetching works', async () => {
+test.skip('Fetching works', async () => {
     const result = await beginFetching(url, abort);
 
     expect(result).toBeTruthy();

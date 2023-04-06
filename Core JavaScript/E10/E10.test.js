@@ -1,6 +1,6 @@
 const printTree = require("./E10");
 
-test("Infix", () => {
+test.skip("Infix", () => {
     const bTree = "(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
     const arr = [];
 

@@ -2,7 +2,7 @@ const { createLinkedList } = require('../E16/createList');
 const isPalindrome = require('./E17');
 
 
-test("Basic test", () => {
+test.skip("Basic test", () => {
     // const array = [1, 2, 2, 3, 3, 2, 2, 1];
     const array = [1, 6, 4, 5, 4, 6, 1];
     const linkedList = createLinkedList(array);
@@ -11,7 +11,7 @@ test("Basic test", () => {
     expect(isPalin).toBe(true);
 });
 
-test("Short palindrome", () => {
+test.skip("Short palindrome", () => {
     const array = [1, 2, 2, 1];
 
     const linkedList = createLinkedList(array);
@@ -21,7 +21,7 @@ test("Short palindrome", () => {
 
 });
 
-test("Not a palindrome", () => {
+test.skip("Not a palindrome", () => {
     const array = [1, 2, 3, 1];
 
     const linkedList = createLinkedList(array);

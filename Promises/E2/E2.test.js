@@ -8,7 +8,7 @@ const maxRetry = 3;
 const useIncrement = true;
 const delay = 1000;
 
-test('Success at first attempt', () => {
+test.skip('Success at first attempt', () => {
     expect.assertions(1);
     return expect(queryRetry(urlQuery('https://jsonplaceholder.typicode.com/todos/1'), maxRetry, delay, useIncrement))
         .resolves

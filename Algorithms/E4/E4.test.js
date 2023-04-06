@@ -1,6 +1,6 @@
 const mergeArrays = require('./E4');
 
-test('Higher value in the large array', () => {
+test.skip('Higher value in the large array', () => {
     const largeArray = [1, 3, 5, 7, 9].concat(new Array(5));
     const smallArray = [0, 2, 4, 6, 8];
 

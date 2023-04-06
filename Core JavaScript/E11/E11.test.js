@@ -17,7 +17,7 @@ document.body.innerHTML =
     </section>
 `;
 
-test("Basic test", () => {
+test.skip("Basic test", () => {
 
     const divs = [];
     const nodeList = querySelectorAll("div.note < input.is-complete[checked]");

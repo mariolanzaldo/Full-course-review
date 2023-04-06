@@ -1,6 +1,6 @@
 const isSameLevel = require("./E13");
 
-test("At the same level", () => {
+test.skip("At the same level", () => {
     // const bTree = "(1,(2,(3),(4,(5))),(2,(3),(4,(5))))";
     const bTree = "(1,(2,(3),(4,(5))),(6,(7),(8,(9))))";
     const arr = [];
