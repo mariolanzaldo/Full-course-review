@@ -1,4 +1,4 @@
-
+const fetch = require('node-fetch');
 
 async function beginFetching(url, abort) {
 
@@ -21,6 +21,7 @@ async function beginFetching(url, abort) {
         }
         results = response;
     } catch (error) {
+        console.log(error);
         if (error.name === "AbortError") {
             results = "API failure (aborted)"
         } else {

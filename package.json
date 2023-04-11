@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "automock": false
   },
   "scripts": {
     "test": "jest",
@@ -18,5 +19,9 @@
     "jest-environment-jsdom": "^29.4.3",
     "jest-image-snapshot": "^6.1.0",
     "jsdom": "^21.1.0"
+  },
+  "dependencies": {
+    "jest-fetch-mock": "^3.0.3",
+    "node-fetch": "^2.6.9"
   }
 }

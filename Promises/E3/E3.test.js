@@ -1,17 +1,18 @@
 const beginFetching = require('./E3');
+const fetch = require('node-fetch');
 
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 const abort = false;
 
-test.skip('Fetching works', async () => {
+test('Fetching works', async () => {
     const result = await beginFetching(url, abort);
 
     expect(result).toBeTruthy();
 });
 
 //TODO: uncomment these lines!
-// test('Fetching aborted', async () => {
-//     const result = await beginFetching(url, true);
+test('Fetching aborted', async () => {
+    const result = await beginFetching(url, true);
 
-//     expect(result).toEqual("API failure (aborted)");
-// });
+    expect(result).toEqual("API failure (aborted)");
+});

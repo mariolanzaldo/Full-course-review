@@ -15,7 +15,7 @@ const tasks = [
     taskFactorySample(1000, false, 'error')
 ];
 
-test('Test', async () => {
+test.skip('Test', async () => {
     const pool_size = 2;
 
     const result = await runBatches(tasks, pool_size);

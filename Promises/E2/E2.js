@@ -6,42 +6,37 @@ function delay(time) {
 async function queryRetry(request, maxRetry, delayTime, useIncrement, attempt = 0) {
     let result;
 
-    // try {
-    //     result = await request();
-    //     return result;
-    // } catch (error) {
-    //     if (useIncrement) {
-    //         delayTime += delayTime;
-    //     }
-    //     if (maxRetry > 0) {
-    //         maxRetry--;
-    //         attempt++;
-    //         // console.log(attempt)
-    //         console.log(delayTime);
-
+    // while (maxRetry > 0) {
+    //     try {
+    //         result = await request();
+    //         return result;
+    //     } catch (err) {
+    //         if (useIncrement) {
+    //             delayTime += delayTime;
+    //         }
 
     //         await delay(delayTime);
-
-    //         await queryRetry(request, maxRetry, delayTime, useIncrement, attempt);
+    //         maxRetry--;
+    //         attempt++;
     //     }
     // }
     // throw { Error: `Query rejected ${attempt} times!` };
 
-    while (maxRetry > 0) {
+
+    for (let i = 0; i < maxRetry; i++) {
+
         try {
             result = await request();
+            console.log(result);
             return result;
         } catch (err) {
             if (useIncrement) {
                 delayTime += delayTime;
             }
-
             await delay(delayTime);
-            maxRetry--;
-            attempt++;
         }
     }
-    throw { Error: `Query rejected ${attempt} times!` };
+    throw new Error('Query retries exceeded');
 };
 
 module.exports = queryRetry;
