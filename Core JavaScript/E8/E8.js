@@ -4,7 +4,7 @@ const impFlatten = (oldObj, parentName) => {
     for (const key in oldObj) {
         const newKey = parentName ? `${parentName}_${key}` : key;
 
-        if (typeof oldObj[key] === "object" && !Array.isArray(oldObj[key])) {
+        if (typeof oldObj[key] === "object" && !Array.isArray(oldObj[key]) && oldObj[key] !== null) {
             obj = { ...obj, ...impFlatten(oldObj[key], newKey) }
         } else {
             obj[newKey] = oldObj[key];
@@ -20,7 +20,7 @@ const funcFlatten = (obj, parentName = '') => {
 
     const newObj = Object.keys(obj).reduce((acc, k) => {
         const prefix = parentName.length ? `${parentName}_` : ``;
-        if (isObject(obj[k]) && !isArray(obj[k])) {
+        if (isObject(obj[k]) && !isArray(obj[k]) && obj[k] !== null) {
             Object.assign(acc, funcFlatten(obj[k], prefix + k));
         }
         else {

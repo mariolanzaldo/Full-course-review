@@ -16,7 +16,6 @@ const recursiveFlatten = (array) => {
 const iterativeFlatten = (array) => {
     let flatArray = [];
     let tempArray = [...array];
-    let head;
 
     while (tempArray.length > 0) {
         let element = tempArray.shift();
