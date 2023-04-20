@@ -6,7 +6,7 @@ button.addEventListener('click', () => {
     const numberInput = document.querySelector('.numberInput');
     const container = document.querySelector(".container");
 
-    if (numberInput.value > 4) {
+    if (numberInput.value > 10) {
         if (container) {
             container.style.display = "none";
         }
@@ -16,7 +16,7 @@ button.addEventListener('click', () => {
         error.innerHTML = 'The input is too large!'
         document.body.appendChild(error);
 
-    } else if (numberInput.value && numberInput.value < 3) {
+    } else if (numberInput.value && numberInput.value < 11) {
         const error = document.querySelector(".error");
         if (error && container) {
             container.style.display = "flex";
