@@ -1,5 +1,13 @@
-const printTree = (tree, order, array) => {
+const printTree = (tree, order) => {
+    let array = [];
+
+    const isValidTree = checkSyntax(tree);
+    console.log(isValidTree);
+
+    if (!isValidTree) throw new Error('Syntax Error');
+
     const arrayTree = convertToArray(tree);
+    console.log(arrayTree);
 
     switch (order) {
         case "prefix":
@@ -63,22 +71,60 @@ const prefixOrder = (tree, array) => {
 
 const convertToArray = (tree) => {
     let temp = '';
+    let isOpen = true;
 
     for (let i = 0; i < tree.length; i++) {
+        if ((tree[i] === ")" || tree[i] === ",") && isOpen) {
+            temp += `"`;
+            isOpen = false;
+        }
+
         if (tree[i] === ',') {
             temp += ',';
         } else if (tree[i] === '(') {
-            temp += '[';
+            temp += '["';
+            isOpen = true;
         } else if (tree[i] === ')') {
             temp += ']';
+            isOpen = false;
+
         } else {
-            temp += '"' + tree[i] + '"';
+            temp += tree[i];
         }
     };
 
     const arrayTree = eval(temp);
 
     return arrayTree;
+};
+
+const checkSyntax = (tree) => {
+    if (tree.length < 1) return true;
+
+    if (tree.length === 1) return false;
+
+    if (tree[0] !== '(' || tree[tree.length - 1] !== ')') return false;
+
+    let parenthesisRemoved = tree.slice(1, -1);
+
+    let internalElements = parenthesisRemoved.split(',');
+
+    if (!internalElements[0]) {
+        internalElements = internalElements.filter(p => p);
+
+        if (internalElements.length >= 1) return false;
+    }
+
+    if (internalElements.length > 1 && (!parenthesisRemoved.includes('(') || (!parenthesisRemoved.includes(')')))) {
+        return false;
+    } else if (internalElements.length > 2 && (!internalElements[1] && !internalElements[2])) {
+        return false;
+    }
+
+    let root = parenthesisRemoved.split(',')[0];
+    if (root.includes('(') || root.includes(')')) return false;
+
+    return true;
 };
 
 module.exports = printTree;

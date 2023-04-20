@@ -4,9 +4,27 @@ const button = document.querySelector(".button");
 
 button.addEventListener('click', () => {
     const numberInput = document.querySelector('.numberInput');
+    const container = document.querySelector(".container");
 
-    const deep = numberInput.value;
-    makeTriangle(deep);
+    if (numberInput.value > 4) {
+        if (container) {
+            container.style.display = "none";
+        }
+
+        const error = document.createElement("div");
+        error.setAttribute("class", "error");
+        error.innerHTML = 'The input is too large!'
+        document.body.appendChild(error);
+
+    } else if (numberInput.value && numberInput.value < 3) {
+        const error = document.querySelector(".error");
+        if (error && container) {
+            container.style.display = "flex";
+            error.style.display = "none";
+        }
+        const deep = numberInput.value;
+        makeTriangle(deep);
+    }
 });
 
 const addDivs = (root) => {

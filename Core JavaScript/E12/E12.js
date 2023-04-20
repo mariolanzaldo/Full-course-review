@@ -1,14 +1,14 @@
-const printTree = (tree, array) => {
+const isSymmetric = (tree) => {
     const arrayTree = convertToArray(tree);
 
-    const isSymmetic = isSymmetric(arrayTree, array);
+    const isSymmetic = traverseTree(arrayTree);
 
     return isSymmetic;
 };
 
-function isSymmetric(strArr) {
-    for (let level = 0; (2 ** (level + 1)) - 1 <= strArr.length; level++) {
-        let row = strArr.slice((2 ** level) - 1, (2 ** (level + 1) - 1));
+function traverseTree(arrayTree) {
+    for (let level = 0; (2 ** (level + 1)) - 1 <= arrayTree.length; level++) {
+        let row = arrayTree.slice((2 ** level) - 1, (2 ** (level + 1) - 1));
 
         const left = JSON.stringify(row);
 
@@ -24,16 +24,25 @@ function isSymmetric(strArr) {
 
 const convertToArray = (tree) => {
     let temp = '';
+    let isOpen = true;
 
     for (let i = 0; i < tree.length; i++) {
+        if ((tree[i] === ")" || tree[i] === ",") && isOpen) {
+            temp += `"`;
+            isOpen = false;
+        }
+
         if (tree[i] === ',') {
             temp += ',';
         } else if (tree[i] === '(') {
-            temp += '[';
+            temp += '["';
+            isOpen = true;
         } else if (tree[i] === ')') {
             temp += ']';
+            isOpen = false;
+
         } else {
-            temp += '"' + tree[i] + '"';
+            temp += tree[i];
         }
     };
 
@@ -42,4 +51,4 @@ const convertToArray = (tree) => {
     return arrayTree;
 };
 
-module.exports = printTree;
+module.exports = isSymmetric;

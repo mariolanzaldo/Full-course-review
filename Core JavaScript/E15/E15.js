@@ -1,14 +1,24 @@
 const findIndexElement = (array) => {
+    let rightSum = 0;
+    let leftSum = 0;
+    let rightIndex = array.length - 1;
+    let leftIndex = 0;
 
-    for (let i = 0; i < array.length; i++) {
-        let leftTotal = array.slice(0, i).reduce((accumulator, currentValue) => {
-            return accumulator + currentValue;
-        }, 0);
+    if (rightIndex === leftIndex) {
+        return -1;
+    }
 
-        let rightTotal = array.slice(i).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    while (leftIndex - rightIndex <= 0) {
+        if (leftSum > rightSum) {
+            rightSum += array[rightIndex];
+            rightIndex--;
+        } else {
+            leftSum += array[leftIndex];
+            leftIndex++;
+        }
 
-        if (leftTotal === rightTotal) {
-            return i - 1;
+        if (rightSum === leftSum) {
+            return rightIndex
         }
     }
     return -1;

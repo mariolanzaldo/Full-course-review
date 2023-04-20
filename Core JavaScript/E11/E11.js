@@ -1,25 +1,19 @@
 function querySelectorAll(selector) {
-
     const output = [];
 
     const [parentSelector, childSelector] = selector.split('<');
 
-    const parents = document.querySelectorAll(parentSelector);
+    let parents = document.querySelectorAll(parentSelector);
 
-    for (const element of parents) {
-        //I don't understand why this is not working in jest, but it seems to work in the Browser
-        // const child = element.querySelector(`:scope > ${childSelector}`); 
-        const child = element.querySelector(`div.note > ${childSelector}`);
+    for (const parent of parents) {
+        const child = parent.querySelectorAll(childSelector);
 
-        if (child) {
-            output.push(element);
+        if (child.length > 0) {
+            output.push(parent);
         }
     }
 
-    return output
+    return output;
 };
-
-// const divs = querySelectorAll("div.note < input.is-complete[checked]");
-// console.log(divs)
 
 module.exports = { querySelectorAll };

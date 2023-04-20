@@ -1,13 +1,22 @@
-const isSameLevel = (tree, array, n1, n2) => {
-    let output;
+const isSameLevel = (tree, n1, n2) => {
     let level = 0;
+    const array = [];
+
+    if (!tree) {
+        return 'Numbers not found at the same level';
+    }
 
     const arrayTree = convertToArray(tree);
+
+    if (arrayTree?.length <= 1) {
+        return 'Numbers not found at the same level';
+    }
 
     const stringArray = JSON.stringify(arrayTree);
 
 
     const sameLevel = prefixOrder(arrayTree, array, level, n1, n2);
+
 
     if (!stringArray.includes(n1) || !stringArray.includes(n2)) {
         return 'Not in tree';
@@ -41,16 +50,25 @@ const prefixOrder = (tree, array, level, n1, n2) => {
 
 const convertToArray = (tree) => {
     let temp = '';
+    let isOpen = true;
 
     for (let i = 0; i < tree.length; i++) {
+        if ((tree[i] === ")" || tree[i] === ",") && isOpen) {
+            temp += `"`;
+            isOpen = false;
+        }
+
         if (tree[i] === ',') {
             temp += ',';
         } else if (tree[i] === '(') {
-            temp += '[';
+            temp += '["';
+            isOpen = true;
         } else if (tree[i] === ')') {
             temp += ']';
+            isOpen = false;
+
         } else {
-            temp += '"' + tree[i] + '"';
+            temp += tree[i];
         }
     };
 

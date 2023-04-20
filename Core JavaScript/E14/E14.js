@@ -18,6 +18,10 @@ const maxAreaHistogram = (histogram) => {
 const maxRectangle = (matrix) => {
     let maxArea = 0;
 
+    if (matrix.length === 0) {
+        return maxArea;
+    }
+
     let histogram = [...matrix[0]].map(p => 0);
 
     for (let row of matrix) {
