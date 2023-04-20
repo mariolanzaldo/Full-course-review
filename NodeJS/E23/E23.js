@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const readline = require('readline');
+const colors = require("colors/safe");
 
 const computePrimes = () => {
 
@@ -35,21 +36,20 @@ const computePrimes = () => {
     process.stdout.write("\n");
     process.stdout.write(primeStr);
 
-    // console.log(primes);
-
     return primes;
 };
 
 
 const isPrime = (n) => {
 
-    if (n % 1 || n < 2) return false;
+    if (n === 1 || n === 0) return false;
 
-    const max = Math.ceil(Math.sqrt(n));
+
+    const max = Math.sqrt(n);
 
 
     for (let counter = 2; counter <= max; counter++) {
-        if (n % counter === 0) {
+        if (n % counter == 0) {
             return false;
         }
     }
@@ -57,7 +57,7 @@ const isPrime = (n) => {
     return true;
 }
 
-const progressBar = (progress) => {
+const progressBar = (progress, primes = "") => {
 
     const size = 100;
 
@@ -69,8 +69,7 @@ const progressBar = (progress) => {
 
     readline.cursorTo(process.stdout, 0, 0);
 
-    process.stdout.write(`\n${fill}${empty}${totalProgress}%`);
-
+    process.stdout.write(colors.green(`\n${fill}`) + colors.red(`${empty}`) + colors.blue(`${totalProgress}%`));
 };
 
 // computePrimes();
