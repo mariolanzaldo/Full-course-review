@@ -2,9 +2,9 @@
 const readline = require('readline');
 const colors = require("colors/safe");
 
-const computePrimes = () => {
+const computePrimes = (N) => {
 
-    const N = parseInt(process.argv[2]);
+    // const N = parseInt(process.argv[2]);
 
     progressBar(0);
 

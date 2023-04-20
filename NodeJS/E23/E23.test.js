@@ -2,10 +2,10 @@ const { computePrimes } = require('./E23');
 
 test('Basic test', () => {
 
-    process.argv[2] = 7;
+    const N = process.argv[2] = 7;
     process.stdout.write = jest.fn();
 
-    const primes = computePrimes();
+    const primes = computePrimes(N);
 
     expect(primes).toEqual([2, 3, 5, 7, 11, 13, 17]);
 
