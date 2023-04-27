@@ -9,6 +9,7 @@ import {
     Legend,
 } from "chart.js";
 import { Line } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
 
 const Graph = ({ data, caption, labels }) => {
     ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -62,5 +63,11 @@ const Graph = ({ data, caption, labels }) => {
         </>
     );
 };
+
+Graph.propTypes = {
+    caption: PropTypes.string,
+    data: PropTypes.array,
+    labels: PropTypes.array,
+}
 
 export default Graph;

@@ -10,7 +10,6 @@ export default function* rootSaga() {
 
     yield put(initData({ dataSet }));
 
-
     while (true) {
         const incomingData = yield take(channel);
         let newLabel;
