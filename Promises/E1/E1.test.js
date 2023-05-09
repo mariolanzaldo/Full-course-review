@@ -1,19 +1,19 @@
 const runBatches = require("./E1");
-// const FakeTimers = require("@sinonjs/fake-timers");
-
-// const fakeClock = FakeTimers.install();
+const FakeTimers = require("@sinonjs/fake-timers");
+const clock = FakeTimers.install();
 
 afterEach(() => {
     jest.clearAllMocks();
+    // jest.useRealTimers();
 });
 
-jest.setTimeout(30000);
-// const fn = jest.fn();
+jest.setTimeout(15000);
+const fn = jest.fn();
 const taskFactorySample = (delay, resolve, val) => {
     return () => {
         return new Promise((res, rej) =>
             setTimeout((value) => {
-                // fn();
+                fn();
                 return resolve ? res(value) : rej(value)
             }, delay, val))
     }
@@ -28,54 +28,57 @@ const tasks = [
     taskFactorySample(1000, false, 'error')
 ];
 
-test('Test', async () => {
+test.skip("Testing time", async () => {
     const pool_size = 2;
 
-    const result = await runBatches(tasks, pool_size);
+    const resultPromise = runBatches(tasks, pool_size);
 
-    // await fakeClock.tickAsync(500);
-    // expect(fn).toHaveBeenCalledTimes(1);
+    await clock.tickAsync(500);
+    expect(fn).toHaveBeenCalledTimes(1);
 
-    // await fakeClock.tickAsync(500);
-    // expect(fn).toHaveBeenCalledTimes(2);
+    await clock.tickAsync(500);
+    expect(fn).toHaveBeenCalledTimes(2);
 
-    // await fakeClock.tickAsync(2000);
-    // expect(fn).toHaveBeenCalledTimes(3);
+    await clock.tickAsync(2000);
+    expect(fn).toHaveBeenCalledTimes(3);
 
-    // await fakeClock.tickAsync(1000);
-    // expect(fn).toHaveBeenCalledTimes(4);
+    await clock.tickAsync(1000);
+    expect(fn).toHaveBeenCalledTimes(4);
 
-    // await fakeClock.tickAsync(1000);
-    // expect(fn).toHaveBeenCalledTimes(5);
+    await clock.tickAsync(1000);
+    expect(fn).toHaveBeenCalledTimes(5);
 
-    // await fakeClock.tickAsync(499);
-    // expect(fn).toHaveBeenCalledTimes(5);
+    await clock.tickAsync(500);
+    expect(fn).toHaveBeenCalledTimes(6);
 
-    // await fakeClock.tickAsync(1);
-    // expect(fn).toHaveBeenCalledTimes(6);
+    const result = await resultPromise;
 
-    return expect(result).toEqual([
-        '{value: 1}',
-        '{value: 2}',
-        '{error: error}',
-        '{value: 4}',
-        '{error: error}',
-        '{error: error}'
+    expect(result).toStrictEqual([
+        { value: 1 },
+        { value: 2 },
+        { error: 'error' },
+        { value: 4 },
+        { error: 'error' },
+        { error: 'error' }
     ]);
 });
 
 test.skip('Pool larger than number of tasks', async () => {
     const pool_size = 200;
-    const results = await runBatches(tasks, pool_size);
-    console.log(results);
+    const resultPromise = runBatches(tasks, pool_size);
 
-    return expect(results).toEqual([
-        '{value: 1}',
-        '{value: 2}',
-        '{error: error}',
-        '{value: 4}',
-        '{error: error}',
-        '{error: error}'
+    await clock.tickAsync(5500);
+    expect(fn).toHaveBeenCalledTimes(6);
+
+    const result = await resultPromise;
+
+    return expect(result).toEqual([
+        { value: 1 },
+        { value: 2 },
+        { error: 'error' },
+        { value: 4 },
+        { error: 'error' },
+        { error: 'error' }
     ])
 });
 

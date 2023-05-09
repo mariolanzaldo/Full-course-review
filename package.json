@@ -21,7 +21,7 @@
     "jsdom": "^21.1.0"
   },
   "dependencies": {
-    "@sinonjs/fake-timers": "github:sinonjs/fake-timers",
+    "@sinonjs/fake-timers": "^10.0.2",
     "colors": "^1.4.0",
     "jest-fetch-mock": "^3.0.3",
     "node-fetch": "^2.6.9",

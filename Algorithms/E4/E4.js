@@ -19,4 +19,12 @@ function mergeArrays(arr1, arrMergeIn) {
     return output;
 }
 
+const largeArray = [1, 3, 5, 7, 9].concat(new Array(5));
+const smallArray = [0, 2, 4, 6, 8];
+
+const largeArraySize = largeArray.length;
+mergeArrays(largeArray, smallArray);
+
+console.log(largeArray);
+
 module.exports = mergeArrays;
