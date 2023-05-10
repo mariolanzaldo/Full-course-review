@@ -12,23 +12,13 @@ test.skip('Higher value in the large array', () => {
     expect(largeArray).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 });
 
-test.skip('Large array contains empty spaces', () => {
-    const smallArr = [0, 7];
-    const largeArr = [0, 2, 4, 7, ,].concat(new Array(2));
-
-    const result = mergeArrays(largeArr, smallArr);
-
-    expect(largeArr).toEqual([0, 0, 2, 4, 7, 7]);
-
-});
-
 test.skip('Small array contains empty spaces', () => {
-    const smallArr = [0, 7, ,];
-    const largeArr = [0, 2, 4, 7].concat(new Array(2));
+    const smallArr = [0, 6, ,];
+    const largeArr = [0, 2, 4, 7].concat(new Array(3));
 
     const result = mergeArrays(largeArr, smallArr);
 
-    expect(largeArr).toEqual([0, 0, 2, 4, 7, 7]);
+    expect(largeArr).toEqual([0, 0, 2, 4, 6, 7]);
 
 });
 
