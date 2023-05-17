@@ -5,7 +5,7 @@ const { querySelectorAll } = require('./E11');
 
 document.body.innerHTML =
     `
-    <section>
+    <section id="parent">
         <div id="1" class="note"><input type="checkbox" class="is-complete" checked> </div>
         <div id="2" class="note"></div>
         <div id="3" class="note"><input type="checkbox" class="is-complete" checked></div>
@@ -19,16 +19,22 @@ document.body.innerHTML =
 
 test.skip("Basic test", () => {
 
-    const divs = [];
+    const innerChild = [];
+    const nodeIds = [];
+    const parentElement = [];
     const nodeList = querySelectorAll("div.note < input.is-complete[checked]");
 
     for (const element of nodeList) {
-        divs.push(element.innerHTML);
+        innerChild.push(element.innerHTML);
+        nodeIds.push(element.id);
+        parentElement.push(element.parentElement.id);
     }
 
-    expect(divs).toEqual([
+    expect(innerChild).toEqual([
         '<input type="checkbox" class="is-complete" checked=""> ',
         '<input type="checkbox" class="is-complete" checked="">',
         '<input type="checkbox" class="is-complete" checked="">'
     ]);
+    expect(nodeIds).toEqual(["1", "3", "5"]);
+    expect(parentElement).toEqual(["parent", "parent", "parent"]);
 });

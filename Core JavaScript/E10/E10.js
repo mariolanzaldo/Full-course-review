@@ -2,12 +2,10 @@ const printTree = (tree, order) => {
     let array = [];
 
     const isValidTree = checkSyntax(tree);
-    console.log(isValidTree);
 
     if (!isValidTree) throw new Error('Syntax Error');
 
     const arrayTree = convertToArray(tree);
-    console.log(arrayTree);
 
     switch (order) {
         case "prefix":
@@ -109,15 +107,22 @@ const checkSyntax = (tree) => {
 
     let internalElements = parenthesisRemoved.split(',');
 
+    if (internalElements[internalElements.length - 1].includes('(') && !internalElements[internalElements.length - 1].includes(')')) {
+        return false;
+    }
+
     if (!internalElements[0]) {
         internalElements = internalElements.filter(p => p);
 
-        if (internalElements.length >= 1) return false;
+        if (internalElements.length >= 1 || internalElements.length === 0) return false;
     }
 
-    if (internalElements.length > 1 && (!parenthesisRemoved.includes('(') || (!parenthesisRemoved.includes(')')))) {
+    if (internalElements.length > 1 && !internalElements[1] && (internalElements[2] && (!parenthesisRemoved.includes('(') || (!parenthesisRemoved.includes(')'))))) {
+
         return false;
-    } else if (internalElements.length > 2 && (!internalElements[1] && !internalElements[2])) {
+    } else if (internalElements.length > 2 && (!internalElements[1] && !internalElements[2]) && internalElements[3]) {
+        return false;
+    } else if (internalElements.length > 2 && (!internalElements[1] && internalElements[2])) {
         return false;
     }
 
