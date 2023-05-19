@@ -6,14 +6,14 @@ test.skip('Basic test', () => {
 
     const isCycle = detectCycle(linkedList);
 
-    expect(isCycle).toBe(true);
+    expect(isCycle).toBe(linkedList);
 });
 
 test.skip('Loop at the beginning', () => {
     const linkedList = createLinkedList([1, 2, 2, 3, 3, 6, 7, 2, 1], 1);
     const isCycle = detectCycle(linkedList);
 
-    expect(isCycle).toBe(true);
+    expect(isCycle).toBe(linkedList);
 });
 
 test.skip('No loop', () => {
@@ -21,5 +21,5 @@ test.skip('No loop', () => {
 
     const isCycle = detectCycle(linkedList);
 
-    expect(isCycle).toBe(false);
+    expect(isCycle).toBe(null);
 });

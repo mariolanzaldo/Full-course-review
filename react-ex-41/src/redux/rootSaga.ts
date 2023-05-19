@@ -1,6 +1,6 @@
 import { call, put, select, take } from "redux-saga/effects";
 import { initData, setData } from "./slices/dataSlice";
-import subscriber from "../components/E41/utils/subscriber";
+import subscriber from "../components/utils/subscriber";
 
 export default function* rootSaga(): Generator<any> {
     const dataSet = "1";

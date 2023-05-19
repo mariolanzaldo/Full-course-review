@@ -1,5 +1,4 @@
 const isSameLevel = (tree, n1, n2) => {
-    // let level = 1;
     const array = [];
 
     if (!tree) {
@@ -98,13 +97,5 @@ const traverseBF = (arrayTree, array, n1, n2) => {
 
     return array;
 }
-
-
-
-// const bTree = "(1,(2,(3),(4,(5))),(6,(7),(8,(9))))";
-// const bTree = "(1,(2),(3))";
-// const bTree = "(1,(2),(3))";
-// const sameLevel = isSameLevel(bTree, "5", "9");
-// const sameLevel = isSameLevel(bTree, "1", "3");
 
 module.exports = isSameLevel;

@@ -1,6 +1,6 @@
 const detectCycle = (cycle) => {
     if (!cycle || !cycle.next || !cycle.next.next) {
-        return false;
+        return null;
     }
 
     let slow = cycle;
@@ -16,7 +16,7 @@ const detectCycle = (cycle) => {
         fast = fast.next.next;
     }
 
-    if (slow != fast) return false;
+    if (slow != fast) return null;
 
     slow = cycle;
 
@@ -25,7 +25,7 @@ const detectCycle = (cycle) => {
         fast = fast.next;
     }
 
-    return true;
+    return cycle;
 }
 
 module.exports = detectCycle;

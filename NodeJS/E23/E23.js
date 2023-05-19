@@ -75,6 +75,10 @@ const progressBar = (progress, primes = "") => {
 // computePrimes();
 progressBar(1);
 
+const input = process.argv[2]
+computePrimes(input);
+
+
 module.exports = {
     computePrimes,
     isPrime,

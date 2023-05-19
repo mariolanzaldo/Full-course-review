@@ -1,4 +1,4 @@
-import Graph from '../../components/E41/Graph';
+import Graph from '../../components/Graph';
 import { Meta, StoryObj } from '@storybook/react';
 
 export default {
