@@ -16,7 +16,7 @@ function getRandomNumber(max: number, min: number) {
     return Math.floor(Math.random() * (max - min) + min);
 };
 
-function createImageList(totalImages: number, max: number = 250 * 2, min: number = 250): Image[] {
+function createImageList(totalImages: number, max: number = 250 * 4, min: number = 250): Image[] {
     const imageList: Image[] = [];
 
     for (let i = 0; i < totalImages; i++) {
@@ -35,7 +35,6 @@ function createImageList(totalImages: number, max: number = 250 * 2, min: number
 };
 
 function createGallery(totalImages: number, galleryId: string = '1') {
-    // const galleryId = Date.now();
     return {
         galleryId,
         images: createImageList(totalImages),
@@ -46,7 +45,7 @@ function fakeDB(totalGalleries: number): { galleryCollection: GalleryCollection[
     const galleries: GalleryCollection[]= [];
 
     for (let i = 0; i < totalGalleries; i++) {
-        const totalImages = getRandomNumber(5, 10);
+        const totalImages = getRandomNumber(20, 100);
         const gallery = createGallery(totalImages, '1');
         galleries.push(gallery);
     }
@@ -59,7 +58,5 @@ function fakeDB(totalGalleries: number): { galleryCollection: GalleryCollection[
 function createJSON(fileName: string, totalImages: number): void {
     writeFileSync(fileName, JSON.stringify(createGallery(totalImages)));
 };
-
-// createJSON('Gallery', 5);
 
 export default { fakeDB, createGallery, createJSON };
