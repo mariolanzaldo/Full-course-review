@@ -38,7 +38,6 @@ app.get('/api/gallery/:id', (req, res) => {
 
         return res.status(200).send(outputPage);
     } catch (error) {
-        console.log(error);
         return res.status(400).send('Something went wrong');
     }
 

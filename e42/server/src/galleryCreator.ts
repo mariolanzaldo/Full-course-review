@@ -19,7 +19,9 @@ function getRandomNumber(max: number, min: number) {
 function createImageList(totalImages: number, max: number = 250 * 4, min: number = 250): Image[] {
     const imageList: Image[] = [];
 
-    for (let i = 0; i < totalImages; i++) {
+    let i = 0;
+
+    while(i < totalImages) {
         const width = getRandomNumber(max, min);
         const height = getRandomNumber(max, min);
         const img = {
@@ -29,6 +31,7 @@ function createImageList(totalImages: number, max: number = 250 * 4, min: number
         }
 
         imageList.push(img);
+        i++;
     }
 
     return imageList;
@@ -44,10 +47,13 @@ function createGallery(totalImages: number, galleryId: string = '1') {
 function fakeDB(totalGalleries: number): { galleryCollection: GalleryCollection[]} {
     const galleries: GalleryCollection[]= [];
 
-    for (let i = 0; i < totalGalleries; i++) {
+    let i = 0;
+
+    while(i < totalGalleries) {
         const totalImages = getRandomNumber(20, 100);
         const gallery = createGallery(totalImages, '1');
         galleries.push(gallery);
+        i++;
     }
 
     return {

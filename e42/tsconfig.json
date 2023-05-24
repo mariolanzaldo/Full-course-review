@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/test/E42.test.j"  ]
 }

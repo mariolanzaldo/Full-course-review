@@ -1,5 +1,4 @@
 import { ImageList, ImageListItem } from "@mui/material";
-import { ReactElement } from "react";
 
 type Image = {
     width: number;

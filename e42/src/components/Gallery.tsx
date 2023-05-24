@@ -14,9 +14,10 @@ const Gallery: FunctionComponent<Props> = ({ id, count }) => {
     const prefetchNext = usePrefetch("getGallery");
     
     useEffect(() => {
+        if (page === count) return;
 
         const handleScroll = () => {
-            if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) {
+            if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 1) {
                 prefetchNext({ galleryId: id, page: page + 1, count }, { force: true});
             }
         };
@@ -28,7 +29,7 @@ const Gallery: FunctionComponent<Props> = ({ id, count }) => {
           };
     }, []);
 
-    const { data, isError, isLoading } = useGetGalleryQuery({
+    const { data, isError, isLoading, isSuccess } = useGetGalleryQuery({
         galleryId: id,
         page: page,
         count,
@@ -40,13 +41,19 @@ const Gallery: FunctionComponent<Props> = ({ id, count }) => {
         
     };
 
-    if(isLoading) return (<div>Loading...</div>);
-    if(isError) return (<div>{"Something went wrong ):"}</div>);
+    let content;
 
+    if(isLoading) {
+        content = <div>Loading...</div>;
+    } else if (isError) { 
+        content = <div>{"Something went wrong ):"}</div>;
+    } else if (isSuccess) {
+        content = <GalleryImages images={data.images} />
+    }
 
     return (
         <Box>
-            <GalleryImages images={data.images}/>
+            {content}
             <Pagination 
             variant="outlined"
             color="secondary"
