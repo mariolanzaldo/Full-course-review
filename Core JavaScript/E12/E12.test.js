@@ -1,6 +1,6 @@
 const isSymmetric = require("./E12");
 
-test.skip("Symmetric", () => {
+test("Symmetric", () => {
     const bTree = "(1,(2, (3), (4)),(2,(4),(3)))";
 
 
@@ -10,7 +10,7 @@ test.skip("Symmetric", () => {
     expect(output).toBe(true);
 });
 
-test.skip("Another case", () => {
+test("Another case", () => {
     const bTree = "(A,(B),(B))";
 
     const output = isSymmetric(bTree);
@@ -18,7 +18,7 @@ test.skip("Another case", () => {
     expect(output).toBe(true);
 })
 
-test.skip("Not symmetric", () => {
+test("Not symmetric", () => {
     const bTree = "(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
 
     const output = isSymmetric(bTree);
@@ -26,7 +26,7 @@ test.skip("Not symmetric", () => {
     expect(output).toBe(false);
 });
 
-test.skip("Other examples", () => {
+test("Other examples", () => {
     const aTree = "(A,(B,,(X)),(B,(X)))";
     const bTree = "(A,(B))";
 

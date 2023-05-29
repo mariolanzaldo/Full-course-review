@@ -1,6 +1,6 @@
 const set = require('./E18');
 
-test.skip("Basic test", () => {
+test("Basic test", () => {
     const obj = {
         name: "Mario",
         age: 30,

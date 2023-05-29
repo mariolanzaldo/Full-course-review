@@ -1,12 +1,28 @@
 import { useEffect, useState } from "react";
-import { openDB } from "idb";
+import { get, set } from "idb-keyval";
 
-const useIndexDB = (dbName: string, store: any, key: string, val: any) => {
-    const [value, setValue] = useState();
+const useIndexedDB = (key: string, initialValue: any) => {
+    const [item, setItem] = useState(initialValue);
 
     useEffect(() => {
-       
+        (async () => {
+            try {
+                const saved = await get(key);
+
+                if(saved) {
+                    setItem(saved);
+                }
+            } catch(e: any) {
+                console.warn("Something went wrong:", e);
+            }
+        })();
     }, []);
 
-    return [value, setValue];
+    useEffect(() => {
+        set(key, () => item);
+    },[item, key]);
+
+    return [item, setItem];
 };
+
+export default useIndexedDB;

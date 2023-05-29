@@ -1,6 +1,6 @@
 const printTree = require("./E10");
 
-test.skip("Infix", () => {
+test("Infix", () => {
     const bTree = "(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
 
     const output = printTree(bTree, "infix");
@@ -8,7 +8,7 @@ test.skip("Infix", () => {
     expect(output).toStrictEqual(["D", "B", "E", "A", "H", "F", "I", "C", "G", "J"]);
 });
 
-test.skip("Prefix", () => {
+test("Prefix", () => {
     const bTree = "(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
 
     const output = printTree(bTree, "prefix");
@@ -16,7 +16,7 @@ test.skip("Prefix", () => {
     expect(output).toStrictEqual(["A", "B", "D", "E", "C", "F", "H", "I", "G", "J"]);
 });
 
-test.skip("Postfix", () => {
+test("Postfix", () => {
     const bTree = "(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
 
     const output = printTree(bTree, "postfix");
@@ -24,7 +24,7 @@ test.skip("Postfix", () => {
     expect(output).toStrictEqual(["D", "E", "B", "H", "I", "F", "J", "G", "C", "A"]);
 });
 
-test.skip("Default", () => {
+test("Default", () => {
     const bTree = "(A,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
 
     const output = printTree(bTree, null);
@@ -32,7 +32,7 @@ test.skip("Default", () => {
     expect(output).toStrictEqual(["D", "B", "E", "A", "H", "F", "I", "C", "G", "J"]);
 });
 
-test.skip("Invalid inputs", () => {
+test("Invalid inputs", () => {
     expect(() => printTree("(A", "infix")).toThrow(Error);
     expect(() => printTree("A)", "infix")).toThrow(Error);
     expect(() => printTree("(,A,,)", "infix")).toThrow(Error);
@@ -49,7 +49,7 @@ test.skip("Invalid inputs", () => {
     expect(() => printTree("(A,(B)),()", "infix")).toThrow(Error);
 });
 
-test.skip("Alternative inputs", () => {
+test("Alternative inputs", () => {
     const aTree = "(A,)"
     const bTree = "(AB,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
     const cTree = "(A,,)";

@@ -5,7 +5,7 @@ beforeEach(() => {
     localStorage.clear();
 });
 
-test.skip("Setting a new data to store and changing something else", () => {
+test("Setting a new data to store and changing something else", () => {
     
     const someConfig = {
         username: "Jonh",

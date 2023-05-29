@@ -1,6 +1,6 @@
 const { impFlatten, funcFlatten } = require('./E8');
 
-test.skip('Imperative approach', () => {
+test('Imperative approach', () => {
     const oldObj = {
         name: 'Sara',
         gender: 'Apache Attack Helicopter',
@@ -31,7 +31,7 @@ test.skip('Imperative approach', () => {
     expect(output).toEqual(result);
 });
 
-test.skip('Declarative approach', () => {
+test('Declarative approach', () => {
     const oldObj = {
         name: 'Sara',
         gender: 'Apache Attack Helicopter',
@@ -62,7 +62,7 @@ test.skip('Declarative approach', () => {
     expect(output).toEqual(result);
 });
 
-test.skip('Already flatten', () => {
+test('Already flatten', () => {
     const oldObj = {
         name: 'Sara',
         gender: 'Apache Attack Helicopter',
@@ -80,7 +80,7 @@ test.skip('Already flatten', () => {
     expect(declarative).toEqual(result);
 });
 
-test.skip('Imperative approach when the object with null properties', () => {
+test('Imperative approach when the object with null properties', () => {
     const oldObj = {
         name: 'Sara',
         gender: 'Apache Attack Helicopter',
@@ -113,7 +113,7 @@ test.skip('Imperative approach when the object with null properties', () => {
     expect(output).toEqual(result);
 });
 
-test.skip('Functional approach when the object with null properties', () => {
+test('Functional approach when the object with null properties', () => {
     const oldObj = {
         name: 'Sara',
         gender: 'Apache Attack Helicopter',

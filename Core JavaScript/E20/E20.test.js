@@ -32,7 +32,7 @@ document.body.innerHTML =
 
 require('./E20');
 
-test.skip("Deep 0", () => {
+test("Deep 0", () => {
     const container = document.querySelector('.container');
 
     const button = document.querySelector('.button');
@@ -48,7 +48,7 @@ test.skip("Deep 0", () => {
     expect(arrayDivs.length).toBe(5);
 });
 
-test.skip("Deep 1", () => {
+test("Deep 1", () => {
     const container = document.querySelector('.container');
 
     const button = document.querySelector('.button');
@@ -64,7 +64,7 @@ test.skip("Deep 1", () => {
     expect(arrayDivs.length).toBe(17);
 });
 
-test.skip("Deep 8", () => {
+test("Deep 8", () => {
     const container = document.querySelector('.container');
 
     const button = document.querySelector('.button');
@@ -80,7 +80,7 @@ test.skip("Deep 8", () => {
     expect(arrayDivs.length).toBe(39365);
 });
 
-test.skip("Deep exceeded", () => {
+test("Deep exceeded", () => {
     const container = document.querySelector('.container');
 
     const button = document.querySelector('.button');

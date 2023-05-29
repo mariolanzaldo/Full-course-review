@@ -17,7 +17,7 @@ document.body.innerHTML =
     </section>
 `;
 
-test.skip("Basic test", () => {
+test("Basic test", () => {
 
     const innerChild = [];
     const nodeIds = [];

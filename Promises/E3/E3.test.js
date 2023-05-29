@@ -3,13 +3,13 @@ const fetch = require('node-fetch');
 
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
-test.skip('Fetching works', async () => {
+test('Fetching works', async () => {
     const result = await beginFetching(url);
 
     expect(result).toBeTruthy();
 });
 
-test.skip('Fetching aborted', async () => {
+test('Fetching aborted', async () => {
     const result = beginFetching(url, true);
     await result.abort();
 

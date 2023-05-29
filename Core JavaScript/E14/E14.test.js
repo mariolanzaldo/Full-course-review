@@ -1,6 +1,6 @@
 const maxRectangle = require('./E14');
 
-test.skip("Simple cases", () => {
+test("Simple cases", () => {
     let matrix = [];
 
     let maxArea = maxRectangle(matrix);
@@ -36,7 +36,7 @@ test.skip("Simple cases", () => {
     expect(maxArea).toBe(2);
 });
 
-test.skip("Basic test", () => {
+test("Basic test", () => {
     const matrix = [
         [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],

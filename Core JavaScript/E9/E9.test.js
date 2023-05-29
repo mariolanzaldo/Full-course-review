@@ -1,6 +1,6 @@
 const { recursiveFlatten, iterativeFlatten } = require('./E9');
 
-test.skip('Recursive test', () => {
+test('Recursive test', () => {
     const array = [1, 2, 3, [4, 5, [6, [[7]], 8]], [9, 10]];
 
     const output = recursiveFlatten(array);
@@ -9,23 +9,23 @@ test.skip('Recursive test', () => {
 
     expect(output).toEqual(result);
 });
-//TODO: uncomment these lines of code!
-// test('Iterative test', () => {
-//     const array = [1, 2, 3, [4, 5, [6, [[7]], 8]], [9, 10]];
-//     const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-//     const output = iterativeFlatten(array);
+test('Iterative test', () => {
+    const array = [1, 2, 3, [4, 5, [6, [[7]], 8]], [9, 10]];
+    const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-//     expect(output).toEqual(result);
-// });
+    const output = iterativeFlatten(array);
 
-// test('Already flat', () => {
-//     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-//     const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    expect(output).toEqual(result);
+});
 
-//     const recursiveOutput = recursiveFlatten(array);
-//     const iterativeOutput = iterativeFlatten(array);
+test('Already flat', () => {
+    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-//     expect(recursiveOutput).toEqual(result);
-//     expect(iterativeOutput).toEqual(result);
-// });
+    const recursiveOutput = recursiveFlatten(array);
+    const iterativeOutput = iterativeFlatten(array);
+
+    expect(recursiveOutput).toEqual(result);
+    expect(iterativeOutput).toEqual(result);
+});

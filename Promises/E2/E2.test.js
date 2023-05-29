@@ -9,7 +9,7 @@ const maxRetry = 3;
 const useIncrement = true;
 const delay = 1000;
 
-test.skip('Success at first attempt', () => {
+test('Success at first attempt', () => {
     expect.assertions(1);
 
     return expect(queryRetry(urlQuery('https://jsonplaceholder.typicode.com/todos/1'), maxRetry, delay, useIncrement))
@@ -27,7 +27,7 @@ const successOnSecondCall = () => {
     }
 };
 
-test.skip('Succeed on 2nd attempt', async () => {
+test('Succeed on 2nd attempt', async () => {
     let query = successOnSecondCall();
 
     const res = await queryRetry(query, maxRetry, delay, useIncrement);
@@ -44,21 +44,21 @@ const successOnThirdCall = () => {
     }
 };
 
-test.skip('Succeed on 3rd attempt', async () => {
+test('Succeed on 3rd attempt', async () => {
     let query = successOnThirdCall();
 
     const res = await queryRetry(query, maxRetry, delay, useIncrement);
     expect(res).toEqual('success');
 });
 
-test.skip('Fail at n attempts', async () => {
+test('Fail at n attempts', async () => {
 
     const res = await queryRetry(urlQuery('https://jsonplaceholder.tpicode.com/todos/1'), maxRetry, delay, useIncrement).catch((err) => {
         expect(err.message).toMatch('Query retries exceeded');
     });
 });
 
-test.skip('Check delay increment', async () => {
+test('Check delay increment', async () => {
     let start = new Date().getTime();
     let totalTime
     try {

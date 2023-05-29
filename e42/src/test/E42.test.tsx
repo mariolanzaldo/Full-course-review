@@ -12,7 +12,7 @@ function TestComponent (){
     );
 };
 
-test.skip("Basic test", async () => {
+test("Basic test", async () => {
     render(<TestComponent />);
     
     const loading = screen.getAllByText("Loading...");
@@ -30,7 +30,7 @@ test.skip("Basic test", async () => {
     })
 });
 
-test.skip("Click on next arrow will render page no. 2", async () => {
+test("Click on next arrow will render page no. 2", async () => {
     render(<TestComponent />);
 
     const nextButton = screen.getByLabelText("Go to next page");
@@ -50,7 +50,7 @@ test.skip("Click on next arrow will render page no. 2", async () => {
     });
 });
 
-test.skip("Click on back arrow will render page no. 1", async () => {
+test("Click on back arrow will render page no. 1", async () => {
     render(<TestComponent />);
 
     const nextButton = screen.getByLabelText("Go to previous page");

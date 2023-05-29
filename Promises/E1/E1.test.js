@@ -87,7 +87,7 @@ test.skip('Pool of size 0', async () => {
     return expect(runBatches(tasks, pool_size)).rejects.toThrow("No task ran. Select a positive pool size");
 });
 
-test.skip('Empty tasks', async () => {
+test('Empty tasks', async () => {
     const pool_size = 2;
     const emptyTasks = [];
     const result = await runBatches(emptyTasks, pool_size);

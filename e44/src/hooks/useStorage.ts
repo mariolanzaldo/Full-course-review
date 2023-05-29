@@ -6,10 +6,6 @@ import {
 
 function useStorage <T>(key: string, initialValue: any, storage: any) {
     const readValue = useCallback(() : T => {
-        // if(typeof window === 'undefined'){
-        //     return initialValue;
-        // }
-
         try {
             const item = storage.getItem(key);
             return item ? (JSON.parse(item) as T) : initialValue
