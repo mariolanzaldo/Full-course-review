@@ -1,11 +1,9 @@
 const printTree = (tree, order) => {
     let array = [];
 
-    const isValidTree = checkSyntax(tree);
+    const { index, data: arrayTree } = convertToArray(tree, 0);
 
-    if (!isValidTree) throw new Error('Syntax Error');
-
-    const arrayTree = convertToArray(tree);
+    if (index !== tree.length - 1) throwError();
 
     switch (order) {
         case "prefix":
@@ -67,69 +65,58 @@ const prefixOrder = (tree, array) => {
     return array;
 };
 
-const convertToArray = (tree) => {
-    let temp = '';
-    let isOpen = true;
+const convertToArray = (tree, startIndex) => {
+    if (tree[startIndex] === ",") {
+        return { index: startIndex - 1, data: null };
+    }
+    if (tree[startIndex] === ")" && startIndex === tree.length - 1)
+        return { index: startIndex - 1, data: null };
+    if (tree[startIndex] !== "(") throwError();
 
-    for (let i = 0; i < tree.length; i++) {
-        if ((tree[i] === ")" || tree[i] === ",") && isOpen) {
-            temp += `"`;
-            isOpen = false;
+    let i = startIndex + 1;
+
+    for (; i < tree.length && tree[i] !== ","; i++) {
+        if (tree[i] === ")") {
+            const element = Array.from(tree.substring(startIndex + 1, i));
+
+            return { index: i, data: element };
+        } else if (tree[i] === "(") {
+            throwError();
         }
+    }
 
-        if (tree[i] === ',') {
-            temp += ',';
-        } else if (tree[i] === '(') {
-            temp += '["';
-            isOpen = true;
-        } else if (tree[i] === ')') {
-            temp += ']';
-            isOpen = false;
+    if (i === tree.length - 1 && tree[i] !== ")") {
+        throwError();
+    }
 
-        } else {
-            temp += tree[i];
-        }
-    };
+    const root = tree.substring(startIndex + 1, i);
 
-    const arrayTree = eval(temp);
+    if (!root) {
+        throwError();
+    }
 
-    return arrayTree;
+    let { index, data: firstChildData } = convertToArray(tree, i + 1);
+
+    if (tree[index + 1] === ")") {
+        return { index: index + 1, data: [root, firstChildData] };
+    }
+
+    if (tree[index + 1] !== ",") {
+        throwError();
+    }
+
+    const { index: secondChildIndex, data: seconChildData } = convertToArray(tree, index + 2);
+    index = secondChildIndex;
+
+
+    if (tree[index + 1] !== ")") throwError();
+
+
+    return { index: index + 1, data: [root, firstChildData, seconChildData] };
 };
 
-const checkSyntax = (tree) => {
-    if (tree.length < 1) return true;
-
-    if (tree.length === 1) return false;
-
-    if (tree[0] !== '(' || tree[tree.length - 1] !== ')') return false;
-
-    let parenthesisRemoved = tree.slice(1, -1);
-
-    let internalElements = parenthesisRemoved.split(',');
-
-    if (internalElements[internalElements.length - 1].includes('(') && !internalElements[internalElements.length - 1].includes(')')) {
-        return false;
-    }
-
-    if (!internalElements[0]) {
-        internalElements = internalElements.filter(p => p);
-
-        if (internalElements.length >= 1 || internalElements.length === 0) return false;
-    }
-
-    if (internalElements.length > 1 && !internalElements[1] && (internalElements[2] && (!parenthesisRemoved.includes('(') || (!parenthesisRemoved.includes(')'))))) {
-
-        return false;
-    } else if (internalElements.length > 2 && (!internalElements[1] && !internalElements[2]) && internalElements[3]) {
-        return false;
-    } else if (internalElements.length > 2 && (!internalElements[1] && internalElements[2])) {
-        return false;
-    }
-
-    let root = parenthesisRemoved.split(',')[0];
-    if (root.includes('(') || root.includes(')')) return false;
-
-    return true;
+const throwError = () => {
+    throw new Error("Syntax Error");
 };
 
 module.exports = printTree;

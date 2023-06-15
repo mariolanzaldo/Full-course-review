@@ -47,6 +47,8 @@ test("Invalid inputs", () => {
     expect(() => printTree("(A,,(B),,)", "infix")).toThrow(Error);
     expect(() => printTree("(,)", "infix")).toThrow(Error);
     expect(() => printTree("(A,(B)),()", "infix")).toThrow(Error);
+    expect(() => printTree("(A,,,,)", "infix")).toThrow(Error);
+    expect(() => printTree("(A,(,()))", "infix")).toThrow(Error);
 });
 
 test("Alternative inputs", () => {
