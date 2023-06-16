@@ -2,13 +2,17 @@ const isSameLevel = (tree, n1, n2) => {
     const array = [];
 
     if (!tree) {
-        return 'Numbers not found at the same level';
+        return false;
     }
 
-    const arrayTree = convertToArray(tree);
+    // const arrayTree = convertToArray(tree);
+    const { index, data: arrayTree } = convertToArray(tree, 0);
+    console.log(arrayTree);
+
+    if (index !== tree.length - 1) throwError();
 
     if (arrayTree?.length <= 1) {
-        return 'Numbers not found at the same level';
+        return false;
     }
 
     const stringArray = JSON.stringify(arrayTree);
@@ -16,43 +20,68 @@ const isSameLevel = (tree, n1, n2) => {
     const sameLevel = traverseBF(arrayTree, array, n1, n2);
 
     if (!stringArray.includes(n1) || !stringArray.includes(n2)) {
-        return 'Not in tree';
+        return false;
     }
 
-    if (sameLevel.length === 2 && sameLevel[0] === sameLevel[1]) {
-        return 'Numbers found at the same level';
-    } else if (sameLevel[0] !== sameLevel[1] || sameLevel.length < 2) {
-        return 'Numbers not found at the same level';
+    if (sameLevel.length === 2 && sameLevel[0] === sameLevel[1] && sameLevel[0] && sameLevel[1]) {
+        return true
+    } else if (sameLevel[0] !== sameLevel[1] || sameLevel.length < 2 || !sameLevel[0] || !sameLevel[1]) {
+        return false;
     }
 };
 
-const convertToArray = (tree) => {
-    let temp = '';
-    let isOpen = true;
+const convertToArray = (tree, startIndex) => {
+    if (tree[startIndex] === ",") {
+        return { index: startIndex - 1, data: null };
+    }
+    if (tree[startIndex] === ")" && startIndex === tree.length - 1)
+        return { index: startIndex - 1, data: null };
+    if (tree[startIndex] !== "(") throwError();
 
-    for (let i = 0; i < tree.length; i++) {
-        if ((tree[i] === ")" || tree[i] === ",") && isOpen) {
-            temp += `"`;
-            isOpen = false;
+    let i = startIndex + 1;
+
+    for (; i < tree.length && tree[i] !== ","; i++) {
+        if (tree[i] === ")") {
+            const element = Array.from(tree.substring(startIndex + 1, i));
+
+            return { index: i, data: element };
+        } else if (tree[i] === "(") {
+            throwError();
         }
+    }
 
-        if (tree[i] === ',') {
-            temp += ',';
-        } else if (tree[i] === '(') {
-            temp += '["';
-            isOpen = true;
-        } else if (tree[i] === ')') {
-            temp += ']';
-            isOpen = false;
+    if (i === tree.length - 1 && tree[i] !== ")") {
+        throwError();
+    }
 
-        } else {
-            temp += tree[i];
-        }
-    };
+    const root = tree.substring(startIndex + 1, i);
 
-    const arrayTree = eval(temp);
+    if (!root) {
+        throwError();
+    }
 
-    return arrayTree;
+    let { index, data: firstChildData } = convertToArray(tree, i + 1);
+
+    if (tree[index + 1] === ")") {
+        return { index: index + 1, data: [root, firstChildData] };
+    }
+
+    if (tree[index + 1] !== ",") {
+        throwError();
+    }
+
+    const { index: secondChildIndex, data: seconChildData } = convertToArray(tree, index + 2);
+    index = secondChildIndex;
+
+
+    if (tree[index + 1] !== ")") throwError();
+
+
+    return { index: index + 1, data: [root, firstChildData, seconChildData] };
+};
+
+const throwError = () => {
+    throw new Error("Syntax Error");
 };
 
 const traverseBF = (arrayTree, array, n1, n2) => {
@@ -97,5 +126,42 @@ const traverseBF = (arrayTree, array, n1, n2) => {
 
     return array;
 }
+// const prefixTraversing = (tree, cb) => {
+//     const recursiveTraversing = (tree, level) => {
+//         const [value, ...children] = tree;
+//         cb([value, level]);
+//         for (let node of children) {
+//             recursiveTraversing(node, level + 1);
+//         }
+//     };
+
+//     recursiveTraversing(tree, 1);
+// };
+
+// const isSameLevel = (tree, n1, n2) => {
+//     const levels = {};
+//     let ans = false;
+//     prefixTraversing(tree, ([value, level]) => {
+//         //  If this is the first time at the level, create the set
+//         if (!levels[level]) {
+//             levels[level] = new Set();
+//         }
+
+//         // Check if the node value is one of the numbers
+//         if ([n1, n2].includes(value)) {
+//             // If both numbers are equal, we just check if the set already had a number
+//             if (n1 === n2 && levels[level].size === 1) ans = true;
+
+//             levels[level].add(value);
+//         }
+
+//         // If the set has two numbers, it means is leveled
+//         if (levels[level].size === 2) {
+//             ans = true;
+//         }
+//     });
+
+//     return ans;
+// };
 
 module.exports = isSameLevel;

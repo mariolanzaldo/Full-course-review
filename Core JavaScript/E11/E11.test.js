@@ -38,3 +38,33 @@ test("Basic test", () => {
     expect(nodeIds).toEqual(["1", "3", "5"]);
     expect(parentElement).toEqual(["parent", "parent", "parent"]);
 });
+
+test("Work as a regular selector", () => {
+    document.body.innerHTML = `
+    <section>
+    <ul> 
+        <li id="1">1</li>
+        <li id="2">2</li>
+        <li id="3">3</li>
+        <li id="4">4</li>
+    </ul>
+    </section>
+    `;
+    const nodeList = querySelectorAll("ul > li");
+
+    expect(nodeList).toHaveLength(4);
+});
+
+test("Should slect the direct parent", () => {
+    document.body.innerHTML = `
+    <div id=“2” class=“note”> 
+        <article> 
+            <span class=“nested”></span>
+        </article>
+    </div>
+    `;
+
+    const nodeList = querySelectorAll(".note < .nested");
+    expect(nodeList).toHaveLength(0);
+
+});

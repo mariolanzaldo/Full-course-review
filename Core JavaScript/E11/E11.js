@@ -1,22 +1,21 @@
 function querySelectorAll(selector) {
-    const output = [];
-
     const [parentSelector, childSelector] = selector.split('<');
+
+    if (!childSelector) return document.querySelectorAll(parentSelector);
 
     let parents = document.querySelectorAll(parentSelector);
 
     for (const parent of parents) {
-        const child = parent.querySelectorAll(childSelector);
+        const children = parent.querySelectorAll(childSelector);
 
-        if (child.length > 0) {
-            output.push(parent);
+        for (const child of children) {
+            child.parentElement.dataset.selected = true;
         }
     }
 
+    const output = document.querySelectorAll("[data-selected]");
+
     return output;
 };
-
-const nodeList = querySelectorAll("div.note < input.is-complete[checked]");
-
 
 module.exports = { querySelectorAll };
