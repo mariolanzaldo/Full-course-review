@@ -6,7 +6,7 @@ const isPalindrome = (linkedList) => {
         return true;
 
     while (temp != null) {
-        stack.push(temp.value);
+        stack.push(temp.data);
         temp = temp.next;
     }
 
@@ -16,17 +16,15 @@ const isPalindrome = (linkedList) => {
     while (temp2 != null) {
         let lastNum = stack.pop();
 
-        if (temp2.value != lastNum) {
+        if (temp2.data != lastNum) {
             return false;
         }
-
         if (length / 2 === stack.length) {
             return true;
         }
-
         temp2 = temp2.next;
     }
     return true;
-}
+};
 
 module.exports = isPalindrome;
