@@ -1,37 +1,32 @@
 const isPalindrome = (linkedList) => {
-    const head = linkedList.data;
-    if (!linkedList || !linkedList.next || !head) return true;
+    let temp = linkedList;
+    let stack = [];
 
-    let fast = linkedList;
-    let slow = linkedList;
-    let temp;
+    if (linkedList == null)
+        return true;
 
-    while (fast && fast.next) {
-        fast = fast.next.next;
-        slow = slow.next;
+    while (temp != null) {
+        stack.push(temp.value);
+        temp = temp.next;
     }
 
-    let prev = null;
-    while (slow) {
-        temp = slow.next;
-        slow.next = prev;
-        prev = slow;
-        slow = temp;
-    }
+    let temp2 = linkedList;
+    let length = stack.length;
 
-    let left = linkedList;
-    let right = prev.next;
+    while (temp2 != null) {
+        let lastNum = stack.pop();
 
-    while (right) {
-        if (left.data !== right.data) {
+        if (temp2.value != lastNum) {
             return false;
         }
 
-        left = left.next;
-        right = right.next;
-    }
+        if (length / 2 === stack.length) {
+            return true;
+        }
 
+        temp2 = temp2.next;
+    }
     return true;
-};
+}
 
 module.exports = isPalindrome;
