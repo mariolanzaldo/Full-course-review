@@ -1,119 +1,137 @@
+class Node {
+    constructor(value) {
+        this.left = null;
+        this.right = null;
+        this.value = value;
+    }
+}
+
 const printTree = (tree, order) => {
     let array = [];
 
-    const { index, data: arrayTree } = convertToArray(tree, 0);
-
-    if (index !== tree.length - 1) throwError();
+    const arrayTree = convertToArray(tree);
 
     switch (order) {
         case "prefix":
-            array = prefixOrder(arrayTree, array);
+            array = prefixOrder(arrayTree);
             break;
         case "infix":
             array = infixOrder(arrayTree, array);
             break;
         case "postfix":
-            array = postfixOrder(arrayTree, array);
+            array = postfixOrder(arrayTree);
             break;
         default:
-            array = infixOrder(arrayTree, array);
+            array = infixOrder(arrayTree);
     }
     return array;
 };
 
-const postfixOrder = (tree, array) => {
-    const [root, left, right] = tree;
-
-    if (root) {
-        if (left) postfixOrder(left, array);
-
-        if (right) postfixOrder(right, array);
-
-        array.push(root);
+const postfixOrder = (node) => {
+    if (!node) {
+        return [];
     }
+
+    const array = [];
+
+    array.push(...postfixOrder(node.left));
+    array.push(...postfixOrder(node.right));
+    array.push(node.value);
 
     return array;
 };
 
-const infixOrder = (tree, array) => {
-    const [root, left, right] = tree;
-
-    if (root) {
-        if (left) infixOrder(left, array);
-
-        array.push(root);
-
-        if (right) infixOrder(right, array);
+const infixOrder = (node) => {
+    if (node === null) {
+        return [];
     }
+    const array = [];
+
+    array.push(...infixOrder(node.left));
+    array.push(node.value);
+    array.push(...infixOrder(node.right));
 
     return array;
 };
 
-const prefixOrder = (tree, array) => {
-    const [root, left, right] = tree;
+const prefixOrder = (node) => {
+    if (node === null) {
+        return [];
+    }
+    const array = [];
 
-    if (root) {
-        array.push(root);
+    array.push(node.value);
+    array.push(...prefixOrder(node.left));
+    array.push(...prefixOrder(node.right));
+    return array;
+};
 
-        if (left) {
-            prefixOrder(left, array);
+const convertToArray = (tree) => {
+    if (tree === "" || !/[A-Za-z0-9 -]/.test(tree)) throwError();
+
+    let index = -1;
+
+    const getValue = () => {
+        let value = "";
+        while (tree[index] !== ")" && tree[index] !== ",") {
+            if (tree[index] === "(" || !tree[index]) {
+                throwError();
+            }
+
+            value += tree[index];
+            index++;
         }
-        if (right) {
-            prefixOrder(right, array);
-        }
+
+        return value;
     }
-    return array;
-};
 
-const convertToArray = (tree, startIndex) => {
-    if (tree[startIndex] === ",") {
-        return { index: startIndex - 1, data: null };
-    }
-    if (tree[startIndex] === ")" && startIndex === tree.length - 1)
-        return { index: startIndex - 1, data: null };
-    if (tree[startIndex] !== "(") throwError();
 
-    let i = startIndex + 1;
+    const createNode = () => {
+        index++;
+        let root;
 
-    for (; i < tree.length && tree[i] !== ","; i++) {
-        if (tree[i] === ")") {
-            const element = Array.from(tree.substring(startIndex + 1, i));
-
-            return { index: i, data: element };
-        } else if (tree[i] === "(") {
+        if (tree[index] === ")" || tree[index] === ",") {
+            return null;
+        } else if (tree[index] === "(") {
+            index++;
+            root = new Node(getValue());
+        } else {
             throwError();
         }
-    }
 
-    if (i === tree.length - 1 && tree[i] !== ")") {
+        if (tree[index] === ")") {
+            index++;
+            return root;
+        }
+
+        root.left = createNode();
+
+        if (tree[index] !== ",") {
+            throwError();
+        } else if (tree[index] === ")") {
+            index++;
+            return root;
+        }
+
+
+        root.right = createNode();
+        if (tree[index] !== ")") {
+            throwError();
+        }
+
+        index++;
+
+        return root;
+    };
+
+    const bTree = createNode();
+    if (tree[index]) {
         throwError();
     }
 
-    const root = tree.substring(startIndex + 1, i);
-
-    if (!root) {
-        throwError();
-    }
-
-    let { index, data: firstChildData } = convertToArray(tree, i + 1);
-
-    if (tree[index + 1] === ")") {
-        return { index: index + 1, data: [root, firstChildData] };
-    }
-
-    if (tree[index + 1] !== ",") {
-        throwError();
-    }
-
-    const { index: secondChildIndex, data: seconChildData } = convertToArray(tree, index + 2);
-    index = secondChildIndex;
-
-
-    if (tree[index + 1] !== ")") throwError();
-
-
-    return { index: index + 1, data: [root, firstChildData, seconChildData] };
+    return bTree;
 };
+
 
 const throwError = () => {
     throw new Error("Syntax Error");

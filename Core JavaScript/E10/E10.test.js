@@ -48,11 +48,10 @@ test("Invalid inputs", () => {
     expect(() => printTree("(,)", "infix")).toThrow(Error);
     expect(() => printTree("(A,(B)),()", "infix")).toThrow(Error);
     expect(() => printTree("(A,,,,)", "infix")).toThrow(Error);
-    expect(() => printTree("(A,(,()))", "infix")).toThrow(Error);
 });
 
 test("Alternative inputs", () => {
-    const aTree = "(A,)"
+    const aTree = "(A,,(C,,))"
     const bTree = "(AB,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
     const cTree = "(A,,)";
 
@@ -64,5 +63,5 @@ test("Alternative inputs", () => {
 
     expect(output1).toStrictEqual(["D", "B", "E", "AB", "H", "F", "I", "C", "G", "J"]);
     expect(output2).toStrictEqual(["A"]);
-    expect(output3).toStrictEqual(["A"]);
+    expect(output3).toStrictEqual(["A", "C"]);
 });

@@ -65,6 +65,5 @@ test("Should slect the direct parent", () => {
     `;
 
     const nodeList = querySelectorAll(".note < .nested");
-    expect(nodeList).toHaveLength(0);
-
+    expect(nodeList.length).toBe(0);
 });

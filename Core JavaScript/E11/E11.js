@@ -6,7 +6,7 @@ function querySelectorAll(selector) {
     let parents = document.querySelectorAll(parentSelector);
 
     for (const parent of parents) {
-        const children = parent.querySelectorAll(childSelector);
+        const children = parent.querySelectorAll(`${parentSelector} > ${childSelector}`);
 
         for (const child of children) {
             child.parentElement.dataset.selected = true;
