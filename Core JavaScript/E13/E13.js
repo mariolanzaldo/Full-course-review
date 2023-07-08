@@ -1,130 +1,42 @@
-const isSameLevel = (tree, n1, n2) => {
-    const array = [];
-
-    if (!tree) {
-        return false;
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.children = [];
     }
 
-    // const arrayTree = convertToArray(tree);
-    const { index, data: arrayTree } = convertToArray(tree, 0);
-    console.log(arrayTree);
-
-    if (index !== tree.length - 1) throwError();
-
-    if (arrayTree?.length <= 1) {
-        return false;
+    addChild(node) {
+        this.children.push(node);
     }
-
-    const stringArray = JSON.stringify(arrayTree);
-
-    const sameLevel = traverseBF(arrayTree, array, n1, n2);
-
-    if (!stringArray.includes(n1) || !stringArray.includes(n2)) {
-        return false;
-    }
-
-    if (sameLevel.length === 2 && sameLevel[0] === sameLevel[1] && sameLevel[0] && sameLevel[1]) {
-        return true
-    } else if (sameLevel[0] !== sameLevel[1] || sameLevel.length < 2 || !sameLevel[0] || !sameLevel[1]) {
-        return false;
-    }
-};
-
-const convertToArray = (tree, startIndex) => {
-    if (tree[startIndex] === ",") {
-        return { index: startIndex - 1, data: null };
-    }
-    if (tree[startIndex] === ")" && startIndex === tree.length - 1)
-        return { index: startIndex - 1, data: null };
-    if (tree[startIndex] !== "(") throwError();
-
-    let i = startIndex + 1;
-
-    for (; i < tree.length && tree[i] !== ","; i++) {
-        if (tree[i] === ")") {
-            const element = Array.from(tree.substring(startIndex + 1, i));
-
-            return { index: i, data: element };
-        } else if (tree[i] === "(") {
-            throwError();
-        }
-    }
-
-    if (i === tree.length - 1 && tree[i] !== ")") {
-        throwError();
-    }
-
-    const root = tree.substring(startIndex + 1, i);
-
-    if (!root) {
-        throwError();
-    }
-
-    let { index, data: firstChildData } = convertToArray(tree, i + 1);
-
-    if (tree[index + 1] === ")") {
-        return { index: index + 1, data: [root, firstChildData] };
-    }
-
-    if (tree[index + 1] !== ",") {
-        throwError();
-    }
-
-    const { index: secondChildIndex, data: seconChildData } = convertToArray(tree, index + 2);
-    index = secondChildIndex;
-
-
-    if (tree[index + 1] !== ")") throwError();
-
-
-    return { index: index + 1, data: [root, firstChildData, seconChildData] };
-};
-
-const throwError = () => {
-    throw new Error("Syntax Error");
-};
-
-const traverseBF = (arrayTree, array, n1, n2) => {
-    const levels = {};
-    let queue = [arrayTree];
-    let level = 1;
-
-    while (queue.length > 0) {
-        let temp = [];
-        let stack = [];
-
-        while (queue.length > 0) {
-            let current = queue.shift();
-            const [value, ...children] = current;
-            temp.push(value);
-
-            for (const element of children) {
-                stack.push(element);
-            }
-        }
-        queue = stack;
-        levels[level] = temp;
-        level++;
-    }
-
-
-    Object.entries(levels).forEach(([key, level]) => {
-        if (n1 !== n2) {
-            array = level.map((element) => {
-                if (element === n1 || element === n2) {
-                    return key;
-                }
-            });
-        } else if (n1 === n2) {
-            const isInLevel = level.filter((el) => el === n1 || el === n2)
-
-            if (isInLevel.length === 2) {
-                array = [key, key];
-            }
-        }
-    });
-
-    return array;
 }
 
-module.exports = isSameLevel;
+const isSameLevel = (root, n1, n2) => {
+    if (root === null) {
+        return false;
+    }
+
+    const queue = [{ node: root, depth: 0 }];
+    const depths = new Map();
+
+    while (queue.length > 0) {
+        const { node, depth } = queue.shift();
+
+        if (node.value === n1 || node.value === n2) {
+            if (depths.has(node).value) {
+                if (depth !== depths.get(node).value) {
+                    return false
+                }
+            } else {
+                depths.set(node, depth);
+            }
+        }
+
+        for (const child of node.children) {
+            queue.push({ node: child, depth: depth + 1 });
+        }
+    }
+
+    return depths.size === 2;
+}
+
+
+module.exports = { isSameLevel, Node };

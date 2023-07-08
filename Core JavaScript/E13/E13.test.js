@@ -1,46 +1,74 @@
-const isSameLevel = require("./E13");
+const { isSameLevel, Node } = require("./E13");
 
-test("At the same level", () => {
-    const bTree = "(1,(2,(3),(4,(5))),(6,(7),(8,(9))))";
+test("At same level", () => {
+    const root = new Node(1);
+    const node2 = new Node(2);
+    const node3 = new Node(3);
+    const node4 = new Node(4);
+    const node5 = new Node(5);
+    const node6 = new Node(6);
 
-    const sameLevel = isSameLevel(bTree, "9", "5");
+    root.addChild(node2);
+    root.addChild(node3);
+    node2.addChild(node4);
+    node3.addChild(node5);
+    node3.addChild(node6);
 
-    expect(sameLevel).toBeTruthy()
+
+
+    const sameLevel = isSameLevel(root, 4, 6);
+    expect(sameLevel).toBeTruthy();
 });
 
-test("Failed at simple cases", () => {
-    const bTree = "(1,(3))";
-    const bTree2 = "(1)";
-    const bTree3 = "(1,(2),(3))";
-    const bTree4 = "(12,(5),(7))";
-    const bTree5 = "((12,(5),(7),(7),(3)), 1, 2)";
+test("Failed at missing numbers", () => {
+    const root = new Node(1);
+    const node2 = new Node(2);
+    const node3 = new Node(3);
+    const node4 = new Node(4);
+    const node5 = new Node(5);
+    const node6 = new Node(6);
 
-    const test1 = isSameLevel(bTree, "1", "3");
+    root.addChild(node2);
+    root.addChild(node3);
+    node2.addChild(node4);
+    node3.addChild(node5);
+    node3.addChild(node6);
 
-    const test2 = isSameLevel(bTree2, "1", "1");
 
-    const test3 = isSameLevel(bTree3, "3", "3");
 
-    let test4 = isSameLevel(bTree4, "1", "2");
-
-    expect(test1).toBeFalsy();
-    expect(test2).toBeFalsy();
-    expect(test3).toBeFalsy();
-    expect(test4).toBeFalsy();
-    expect(() => isSameLevel(bTree5, "1", "2")).toThrow(Error);
-});
-
-test("Not at the same level", () => {
-    const bTree = "(1,(2,(3),(4,(5))),(6,(7),(8,(9))))";
-
-    const sameLevel = isSameLevel(bTree, "9", "6");
-
+    const sameLevel = isSameLevel(root, 4, 8);
     expect(sameLevel).toBeFalsy();
 });
 
-test("Any number not in the array", () => {
-    const bTree = "(1,(2,(3),(4,(5))),(2,(3),(4,(5))))";
+test("Should fail only one three", () => {
+    const root = new Node(1);
+    const node2 = new Node(2);
+    const node3 = new Node(3);
 
-    const sameLevel = isSameLevel(bTree, "9", "5");
+    root.addChild(node2);
+    root.addChild(node3);
+
+    const sameLevel = isSameLevel(root, 3, 3);
     expect(sameLevel).toBeFalsy();
+});
+
+test("Should pass", () => {
+    const root = new Node(1);
+    const node2 = new Node(2);
+    const node3 = new Node(3);
+    const node4 = new Node(4);
+    const node5 = new Node(5);
+    const node6 = new Node(4);
+    const node7 = new Node(6);
+
+
+    root.addChild(node2);
+    root.addChild(node3);
+    node2.addChild(node4);
+    node3.addChild(node5);
+    node3.addChild(node6);
+    node4.addChild(node7);
+
+    const sameLevel = isSameLevel(root, 4, 4);
+    expect(sameLevel).toBeTruthy();
 });
