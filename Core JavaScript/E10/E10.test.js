@@ -54,14 +54,20 @@ test("Alternative inputs", () => {
     const aTree = "(A,,(C,,))"
     const bTree = "(AB,(B,(D),(E)),(C,(F,(H),(I)),(G,,(J))))";
     const cTree = "(A,,)";
+    const dTree = "(A,(B))";
+    const eTree = "(A,,(C,))";
+
 
     const output1 = printTree(bTree, "infix");
     const output2 = printTree(cTree, "infix");
     const output3 = printTree(aTree, "infix");
-
-
+    const output4 = printTree(dTree, "infix");
+    const output5 = printTree(eTree, "infix");
 
     expect(output1).toStrictEqual(["D", "B", "E", "AB", "H", "F", "I", "C", "G", "J"]);
     expect(output2).toStrictEqual(["A"]);
     expect(output3).toStrictEqual(["A", "C"]);
+    expect(output4).toStrictEqual(["B", "A"]);
+    expect(output5).toStrictEqual(["A", "C"]);
+
 });

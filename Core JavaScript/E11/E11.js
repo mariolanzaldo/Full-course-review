@@ -1,21 +1,23 @@
 function querySelectorAll(selector) {
-    const [parentSelector, childSelector] = selector.split('<');
+    const parts = selector.split(' < ');
+    const [parentSelector, childSelector] = parts;
 
-    if (!childSelector) return document.querySelectorAll(parentSelector);
+    if (parts.length === 2) {
+        const parentElements = document.querySelectorAll(parentSelector);
+        const selectedElements = [];
 
-    let parents = document.querySelectorAll(parentSelector);
+        parentElements.forEach((parentElement) => {
+            const matchingChildren = parentElement.querySelectorAll(childSelector);
 
-    for (const parent of parents) {
-        const children = parent.querySelectorAll(`${parentSelector} > ${childSelector}`);
+            if ([...matchingChildren].some(child => child.parentElement === parentElement)) {
+                selectedElements.push(parentElement);
+            }
+        });
 
-        for (const child of children) {
-            child.parentElement.dataset.selected = true;
-        }
+        return selectedElements;
+    } else {
+        return document.querySelectorAll(selector);
     }
-
-    const output = document.querySelectorAll("[data-selected]");
-
-    return output;
 };
 
 module.exports = { querySelectorAll };

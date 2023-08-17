@@ -1,7 +1,7 @@
 class Node {
-    constructor(value) {
+    constructor(value, children = []) {
         this.value = value;
-        this.children = [];
+        this.children = children;
     }
 
     addChild(node) {
@@ -35,7 +35,7 @@ const isSameLevel = (root, n1, n2) => {
         }
     }
 
-    return depths.size === 2;
+    return depths.size === 2 && depths.get(root) !== 0;
 }
 
 

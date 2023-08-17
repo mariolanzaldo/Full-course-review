@@ -72,3 +72,16 @@ test("Should pass", () => {
     const sameLevel = isSameLevel(root, 4, 4);
     expect(sameLevel).toBeTruthy();
 });
+
+test("Alternative inputs", () => {
+    const tree1 = new Node(1, [new Node(1)]);
+
+    let sameLevel = isSameLevel(tree1, 1, 1);
+    console.log(sameLevel);
+
+    expect(sameLevel).toBeFalsy();
+
+    sameLevel = isSameLevel(tree1, 1, 7);
+
+    expect(sameLevel).toBeFalsy();
+});
