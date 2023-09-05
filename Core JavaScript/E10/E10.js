@@ -107,9 +107,6 @@ const convertToArray = (tree) => {
         root.left = createNode();
 
         if (tree[index] !== "," && tree[index] !== ")") {
-            console.log(index)
-            console.log(tree)
-            console.log(tree[index])
             throwError();
         } else if (tree[index] === ")") {
             index++;
