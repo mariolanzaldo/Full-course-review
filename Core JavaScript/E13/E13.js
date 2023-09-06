@@ -20,12 +20,15 @@ const isSameLevel = (root, n1, n2) => {
     while (queue.length > 0) {
         const { node, depth } = queue.shift();
 
-        if (node.value === n1 || node.value === n2) {
-            if (depths.has(node).value) {
-                if (depth !== depths.get(node).value) {
+        if ((node.value === n1 || node.value === n2) && depth !== 0) {
+            // console.log('here', node.children);
+            if (depths.has(node.value)) {
+                // console.log('here')
+                if (depth !== depths.get(node.value)) {
                     return false
                 }
             } else {
+                console.log(depth);
                 depths.set(node, depth);
             }
         }

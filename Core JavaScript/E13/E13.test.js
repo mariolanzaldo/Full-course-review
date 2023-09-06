@@ -77,11 +77,19 @@ test("Alternative inputs", () => {
     const tree1 = new Node(1, [new Node(1)]);
 
     let sameLevel = isSameLevel(tree1, 1, 1);
-    console.log(sameLevel);
 
     expect(sameLevel).toBeFalsy();
 
     sameLevel = isSameLevel(tree1, 1, 7);
 
     expect(sameLevel).toBeFalsy();
+});
+
+test("Another test", () => {
+    const tree1 = new Node(1, [new Node(1), new Node(1)]);
+
+    let sameLevel = isSameLevel(tree1, 1, 1);
+    console.log(sameLevel);
+
+    expect(sameLevel).toBeTruthy();
 });
