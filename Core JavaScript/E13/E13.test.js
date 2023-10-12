@@ -89,7 +89,14 @@ test("Another test", () => {
     const tree1 = new Node(1, [new Node(1), new Node(1)]);
 
     let sameLevel = isSameLevel(tree1, 1, 1);
-    console.log(sameLevel);
 
     expect(sameLevel).toBeTruthy();
 });
+
+test("Not binary case", () => {
+    const tree1 = new Node(1, [new Node(3), new Node(3), new Node(7)]);
+
+    let sameLevel = isSameLevel(tree1, 3, 7);
+
+    expect(sameLevel).toBeTruthy();
+})
