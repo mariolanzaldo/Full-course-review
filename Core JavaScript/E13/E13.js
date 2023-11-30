@@ -36,7 +36,12 @@ const isSameLevel = (root, n1, n2) => {
         }
     }
 
-    return depths.size >= 2 && depths.get(root) !== 0;
+    console.log(depths.size >= 2);
+    console.log(depths.get(root));
+
+
+    // return depths.size >= 2 && depths.get(root) !== 0;
+    return depths.size >= 2; depths.get(n1) !== undefined && depths.get(n2) !== undefined;
 }
 
 module.exports = { isSameLevel, Node };

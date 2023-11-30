@@ -99,4 +99,12 @@ test("Not binary case", () => {
     let sameLevel = isSameLevel(tree1, 3, 7);
 
     expect(sameLevel).toBeTruthy();
+});
+
+test("New case", () => {
+    const tree1 = new Node(1, [new Node(3), new Node(3), new Node(7)]);
+
+    let sameLevel = isSameLevel(tree1, new Node(1, [new Node(3), new Node(3), new Node(7)]))
+
+    expect(sameLevel).toBeFalsy();
 })
