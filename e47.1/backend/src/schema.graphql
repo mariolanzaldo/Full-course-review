@@ -1,0 +1,26 @@
+type Void {
+  null: Boolean
+}
+
+type Query {
+  getBooks: [Book]
+}
+
+type Mutation {
+  createUser(input: createUserInput!): Void!
+}
+
+type Book {
+  title: String
+  author: String
+}
+
+input createUserInput {
+  username: String!
+  password: String!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
