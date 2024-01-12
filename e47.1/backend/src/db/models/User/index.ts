@@ -1,6 +1,7 @@
 import  mongoose, { Document, Schema} from "mongoose";
 import validatorLib from "validator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 // import passportLocalMongoose from "passport-local";
 
 export interface User extends Document{
@@ -42,6 +43,23 @@ userSchema.methods.isValidPassword = async function(password: string) {
     const compare = await bcrypt.compare(password, user.password);
     return compare;
 };
+
+userSchema.methods.generateToken = function () {
+    try {
+        const user = this;
+        const payload = { _id: user.id};
+        const secret = process.env.SECRET_TOKEN;
+ 
+        const options = { expiresIn: "1y" };
+
+        if(!secret) throw Error;
+
+        const token = jwt.sign(payload, secret, options);
+        return token;
+    }catch (error) {
+        throw error;
+    }
+}
 
 export const UserModel = mongoose.model<User>("User", userSchema);
 

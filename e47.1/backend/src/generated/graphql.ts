@@ -23,9 +23,21 @@ export type Book = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export type LoginInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type LogoutResponse = {
+  __typename?: 'LogoutResponse';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: Void;
+  login: User;
+  logout?: Maybe<LogoutResponse>;
 };
 
 
@@ -33,14 +45,35 @@ export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
 
+
+export type MutationLoginArgs = {
+  input: LoginInput;
+};
+
+
+export type MutationLogoutArgs = {
+  input?: InputMaybe<CookieInput>;
+};
+
 export type Query = {
   __typename?: 'Query';
   getBooks?: Maybe<Array<Maybe<Book>>>;
 };
 
+export type User = {
+  __typename?: 'User';
+  following?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  id?: Maybe<Scalars['ID']['output']>;
+  username?: Maybe<Scalars['String']['output']>;
+};
+
 export type Void = {
   __typename?: 'Void';
   null?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type CookieInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateUserInput = {
@@ -126,10 +159,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Book: ResolverTypeWrapper<Book>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  LoginInput: LoginInput;
+  LogoutResponse: ResolverTypeWrapper<LogoutResponse>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Void: ResolverTypeWrapper<Void>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  cookieInput: CookieInput;
   createUserInput: CreateUserInput;
   AdditionalEntityFields: AdditionalEntityFields;
 };
@@ -138,10 +176,15 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Book: Book;
   String: Scalars['String']['output'];
+  LoginInput: LoginInput;
+  LogoutResponse: LogoutResponse;
+  Boolean: Scalars['Boolean']['output'];
   Mutation: {};
   Query: {};
+  User: User;
+  ID: Scalars['ID']['output'];
   Void: Void;
-  Boolean: Scalars['Boolean']['output'];
+  cookieInput: CookieInput;
   createUserInput: CreateUserInput;
   AdditionalEntityFields: AdditionalEntityFields;
 };
@@ -199,12 +242,26 @@ export type BookResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type LogoutResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LogoutResponse'] = ResolversParentTypes['LogoutResponse']> = {
+  success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<ResolversTypes['Void'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
+  logout?: Resolver<Maybe<ResolversTypes['LogoutResponse']>, ParentType, ContextType, Partial<MutationLogoutArgs>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getBooks?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  following?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type VoidResolvers<ContextType = any, ParentType extends ResolversParentTypes['Void'] = ResolversParentTypes['Void']> = {
@@ -214,8 +271,10 @@ export type VoidResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Book?: BookResolvers<ContextType>;
+  LogoutResponse?: LogoutResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
   Void?: VoidResolvers<ContextType>;
 };
 

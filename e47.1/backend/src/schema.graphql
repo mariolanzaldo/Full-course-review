@@ -8,6 +8,8 @@ type Query {
 
 type Mutation {
   createUser(input: createUserInput!): Void!
+  login(input: LoginInput!): User!
+  logout(input: cookieInput): LogoutResponse
 }
 
 type Book {
@@ -15,9 +17,28 @@ type Book {
   author: String
 }
 
+type User {
+  id: ID
+  username: String
+  following: [String]
+}
+
+type LogoutResponse {
+  success: Boolean
+}
+
 input createUserInput {
   username: String!
   password: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+input cookieInput {
+  name: String
 }
 
 schema {
