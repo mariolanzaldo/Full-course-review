@@ -1,6 +1,7 @@
 import { connection, connect, ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
-
+import importData from "./importData";
+import EmployeeModel from "./models/Employee";
 dotenv.config();
 let reconnecting = false;
 
@@ -10,6 +11,12 @@ export const connectToDB = async () => {
 
         if(URL) {
             await connect(URL,{useNewUrlParser: true, useUnifiedTopology: true} as ConnectOptions);
+
+            const isCollectionEmpty = Boolean(await EmployeeModel.countDocuments());
+
+            if(!isCollectionEmpty) {
+                importData();
+            }
         }
     } catch (error) {
         console.error("Error connecting to MongoDB:", (error as Error)?.message);

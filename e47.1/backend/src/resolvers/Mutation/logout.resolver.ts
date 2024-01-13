@@ -4,7 +4,7 @@ import { cookieInput } from "../../types/user.types";
 
 export const logout: ResolverFn<any, cookieInput, any, any> = async function (_, {input }, { res }) {
     const { name } = input;
-
+    //TODO: Add security to verify the user request
         const options = {
             maxAge: 1e9,
             httpOnly: true,
