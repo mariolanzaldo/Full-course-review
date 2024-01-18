@@ -1,8 +1,6 @@
 import  mongoose, { Document, Schema} from "mongoose";
-import validatorLib from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-// import passportLocalMongoose from "passport-local";
 
 export interface User extends Document{
     username: string;

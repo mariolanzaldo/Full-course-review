@@ -17,10 +17,40 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type AddEmployeeInput = {
+  category?: InputMaybe<Scalars['String']['input']>;
+  exp?: InputMaybe<Scalars['Int']['input']>;
+  location_city?: InputMaybe<Scalars['String']['input']>;
+  location_state?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  salary?: InputMaybe<Scalars['Int']['input']>;
+  skills?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  subcategory?: InputMaybe<Scalars['String']['input']>;
+  work_authorization?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Book = {
   __typename?: 'Book';
   author?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+export type DeleteEmployeeInput = {
+  _id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Employee = {
+  __typename?: 'Employee';
+  _id?: Maybe<Scalars['ID']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
+  exp?: Maybe<Scalars['Int']['output']>;
+  location_city?: Maybe<Scalars['String']['output']>;
+  location_state?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  salary?: Maybe<Scalars['Int']['output']>;
+  skills?: Maybe<Array<Maybe<Skill>>>;
+  subcategory?: Maybe<Scalars['String']['output']>;
+  work_authorization?: Maybe<Scalars['String']['output']>;
 };
 
 export type LoginInput = {
@@ -35,14 +65,27 @@ export type LogoutResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addEmployee: Employee;
   createUser: Void;
+  deleteEmployee: Employee;
   login: User;
   logout?: Maybe<LogoutResponse>;
+  updateEmployee: Scalars['String']['output'];
+};
+
+
+export type MutationAddEmployeeArgs = {
+  input: AddEmployeeInput;
 };
 
 
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
+};
+
+
+export type MutationDeleteEmployeeArgs = {
+  input: DeleteEmployeeInput;
 };
 
 
@@ -55,9 +98,31 @@ export type MutationLogoutArgs = {
   input?: InputMaybe<CookieInput>;
 };
 
+
+export type MutationUpdateEmployeeArgs = {
+  input: UpdateEmployeeInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   getBooks?: Maybe<Array<Maybe<Book>>>;
+};
+
+export type Skill = {
+  __typename?: 'Skill';
+  skill?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+export type UpdateEmployeeInput = {
+  category?: InputMaybe<Scalars['String']['input']>;
+  exp?: InputMaybe<Scalars['Int']['input']>;
+  location_city?: InputMaybe<Scalars['String']['input']>;
+  location_state?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  salary?: InputMaybe<Scalars['Int']['input']>;
+  skills?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  subcategory?: InputMaybe<Scalars['String']['input']>;
+  work_authorization?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
@@ -157,15 +222,21 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Book: ResolverTypeWrapper<Book>;
+  AddEmployeeInput: AddEmployeeInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Book: ResolverTypeWrapper<Book>;
+  DeleteEmployeeInput: DeleteEmployeeInput;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Employee: ResolverTypeWrapper<Employee>;
   LoginInput: LoginInput;
   LogoutResponse: ResolverTypeWrapper<LogoutResponse>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
+  Skill: ResolverTypeWrapper<Skill>;
+  UpdateEmployeeInput: UpdateEmployeeInput;
   User: ResolverTypeWrapper<User>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Void: ResolverTypeWrapper<Void>;
   cookieInput: CookieInput;
   createUserInput: CreateUserInput;
@@ -174,15 +245,21 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Book: Book;
+  AddEmployeeInput: AddEmployeeInput;
   String: Scalars['String']['output'];
+  Int: Scalars['Int']['output'];
+  Book: Book;
+  DeleteEmployeeInput: DeleteEmployeeInput;
+  ID: Scalars['ID']['output'];
+  Employee: Employee;
   LoginInput: LoginInput;
   LogoutResponse: LogoutResponse;
   Boolean: Scalars['Boolean']['output'];
   Mutation: {};
   Query: {};
+  Skill: Skill;
+  UpdateEmployeeInput: UpdateEmployeeInput;
   User: User;
-  ID: Scalars['ID']['output'];
   Void: Void;
   cookieInput: CookieInput;
   createUserInput: CreateUserInput;
@@ -242,19 +319,41 @@ export type BookResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type EmployeeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Employee'] = ResolversParentTypes['Employee']> = {
+  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  exp?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  location_city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  location_state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  salary?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  skills?: Resolver<Maybe<Array<Maybe<ResolversTypes['Skill']>>>, ParentType, ContextType>;
+  subcategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  work_authorization?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type LogoutResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LogoutResponse'] = ResolversParentTypes['LogoutResponse']> = {
   success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addEmployee?: Resolver<ResolversTypes['Employee'], ParentType, ContextType, RequireFields<MutationAddEmployeeArgs, 'input'>>;
   createUser?: Resolver<ResolversTypes['Void'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  deleteEmployee?: Resolver<ResolversTypes['Employee'], ParentType, ContextType, RequireFields<MutationDeleteEmployeeArgs, 'input'>>;
   login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
   logout?: Resolver<Maybe<ResolversTypes['LogoutResponse']>, ParentType, ContextType, Partial<MutationLogoutArgs>>;
+  updateEmployee?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationUpdateEmployeeArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getBooks?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
+};
+
+export type SkillResolvers<ContextType = any, ParentType extends ResolversParentTypes['Skill'] = ResolversParentTypes['Skill']> = {
+  skill?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -271,9 +370,11 @@ export type VoidResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Book?: BookResolvers<ContextType>;
+  Employee?: EmployeeResolvers<ContextType>;
   LogoutResponse?: LogoutResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Skill?: SkillResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Void?: VoidResolvers<ContextType>;
 };

@@ -16,8 +16,25 @@ const importData = async function () {
         const JSONData = xml2json.toJson(xmlData);
 
         const parsedData = JSON.parse(JSONData);
+
+        const modifiedEmployees = parsedData.employees.employee.map((employee: any) => {
+            const modifiedEmployee = {
+                ...employee,
+                work_authorization: employee['work-authorization'],
+                location_city: employee['location-city'],
+                location_state: employee['location-state'],
+            };
+
+            delete modifiedEmployee['work-authorization'];
+            delete modifiedEmployee['location-city'];
+            delete modifiedEmployee['location-state'];
+
+            return modifiedEmployee;
+        });
+
+        await EmployeeModel.insertMany(modifiedEmployees);
     
-        await EmployeeModel.insertMany(parsedData.employees.employee);
+        // await EmployeeModel.insertMany(parsedData.employees.employee);
 
         console.log("Data imported successfully!");
     } catch (error) {  

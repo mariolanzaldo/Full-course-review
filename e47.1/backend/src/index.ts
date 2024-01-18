@@ -16,11 +16,16 @@ import { ApolloServerPluginDrainHttpServer} from "@apollo/server/plugin/drainHtt
 import { WebSocketServer} from "ws";
 import { useServer} from "graphql-ws/lib/use/ws";
 import { connectToDB } from "./db";
+import getUser from "./utils/gql.getUser";
+import { Employee, GetAuthUser} from "./types";
 
-interface MyContext {
+
+export interface MyContext {
     req: express.Request;
     res: express.Response;
     UserModel?: typeof User;
+    EmployeeModel?: Employee;
+    getAuthUser?: GetAuthUser;
 }
 
 dotenv.config();
@@ -59,11 +64,16 @@ async function start() {
     await  server.start();
 //TODO: Context goes here
     app.use("/graphql", cors<cors.CorsRequest>(),bodyParser.json(), expressMiddleware(server, {
-        context: async({ req, res}) => ({
-            req,
-            res,
-            models
-        })
+        context: async({ req, res}) => {
+            const getAuthUser = getUser.bind(null, req, res);
+            
+            return ({
+                req,
+                res,
+                models,
+                getAuthUser,
+            });
+        }
     }));
     
     

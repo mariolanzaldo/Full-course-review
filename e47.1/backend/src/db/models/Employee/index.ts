@@ -2,6 +2,7 @@ import mongoose, { Schema, Document} from "mongoose";
 import {Employee, Skill} from "../../../types";
 
 // export interface EmployeeDocument  extends Document {};
+
 const skillSchema = new Schema <Skill>({
 
     skill: [{
@@ -16,10 +17,16 @@ const employeeSchema = new Schema<Employee>({
     name: {
         type: String,
     },
-    "location-city": {
+    // "location-city": {
+    //     type: String,
+    // },
+    // "location-state": {
+    //     type: String,
+    // },
+    location_city: {
         type: String,
     },
-    "location-state": {
+    location_state: {
         type: String,
     },
     exp: {
@@ -35,11 +42,11 @@ const employeeSchema = new Schema<Employee>({
     subcategory: {
         type: String,
     },
-    "work-authorization": {
+    work_authorization: {
         type: String,
     }
 });
 
-const EmployeeModel = mongoose.model<Document>("Employee", employeeSchema);
+export const EmployeeModel = mongoose.model<Document>("Employee", employeeSchema);
 
 export default EmployeeModel;

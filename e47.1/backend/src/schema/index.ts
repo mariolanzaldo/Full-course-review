@@ -2,6 +2,7 @@
 export * from "./type/book.schema";
 export * from "./type/user.schema";
 export * from "./type/logoutResponse.schema";
+export * from "./type/employee.schema";
 
 //Query
 export * from "./query/getBooks.schema";
@@ -10,3 +11,7 @@ export * from "./query/getBooks.schema";
 export * from "./mutation/createUser.schema";
 export * from "./mutation/login.schema";
 export * from "./mutation/logout.schema";
+export * from "./mutation/addEmployee.schema";
+export * from "./mutation/deleteEmployee.schema";
+// export * from "./mutation/updateEmployee.schema";
+export * from "./mutation/updateEmployee.schema";
