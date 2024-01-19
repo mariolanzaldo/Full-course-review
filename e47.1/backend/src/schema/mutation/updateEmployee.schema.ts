@@ -2,6 +2,7 @@ import { gql } from "graphql-tag";
 
 export const updateEmployee = gql`
     input UpdateEmployeeInput {
+        _id: ID
         name: String
         location_city: String
         location_state: String
@@ -14,7 +15,7 @@ export const updateEmployee = gql`
     }
 
     extend type Mutation {
-        updateEmployee(input: UpdateEmployeeInput!): String!
+        updateEmployee(input: UpdateEmployeeInput!): Employee!
     }
 `;
 

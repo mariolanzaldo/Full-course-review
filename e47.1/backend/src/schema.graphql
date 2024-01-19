@@ -12,7 +12,13 @@ type Mutation {
   logout(input: cookieInput): LogoutResponse
   addEmployee(input: AddEmployeeInput!): Employee!
   deleteEmployee(input: DeleteEmployeeInput!): Employee!
-  updateEmployee(input: UpdateEmployeeInput!): String!
+  updateEmployee(input: UpdateEmployeeInput!): Employee!
+  follow(input: FollowInput!): User!
+  unfollow(input: FollowInput!): User!
+}
+
+type Subscription {
+  following: FollowNotification
 }
 
 type Book {
@@ -47,6 +53,11 @@ type Skill {
   skill: [String]
 }
 
+type FollowNotification {
+  following: Boolean!
+  employee: Employee!
+}
+
 input createUserInput {
   username: String!
   password: String!
@@ -78,6 +89,7 @@ input DeleteEmployeeInput {
 }
 
 input UpdateEmployeeInput {
+  _id: ID
   name: String
   location_city: String
   location_state: String
@@ -89,7 +101,12 @@ input UpdateEmployeeInput {
   work_authorization: String
 }
 
+input FollowInput {
+  _id: ID
+}
+
 schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }

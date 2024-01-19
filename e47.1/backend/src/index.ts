@@ -18,7 +18,7 @@ import { useServer} from "graphql-ws/lib/use/ws";
 import { connectToDB } from "./db";
 import getUser from "./utils/gql.getUser";
 import { Employee, GetAuthUser} from "./types";
-
+import pubSub from "./pubsub";
 
 export interface MyContext {
     req: express.Request;
@@ -26,6 +26,7 @@ export interface MyContext {
     UserModel?: typeof User;
     EmployeeModel?: Employee;
     getAuthUser?: GetAuthUser;
+    pubSub?: any;
 }
 
 dotenv.config();
@@ -42,7 +43,22 @@ const wsServer = new WebSocketServer({
     path: "/graphql",
 });
 
-const serverCleanup = useServer({ schema }, wsServer);
+const serverCleanup = useServer({ 
+    schema,
+    context: async({ req, res}: { req:any, res:any}) => {
+        const getAuthUser = getUser.bind(null, req, res);
+        
+        return ({
+            req,
+            res,
+            models,
+            getAuthUser,
+            pubSub,
+        });
+    },
+}, 
+    
+    wsServer);
 
 const server = new ApolloServer<MyContext>({
     schema,
@@ -72,6 +88,7 @@ async function start() {
                 res,
                 models,
                 getAuthUser,
+                pubSub
             });
         }
     }));

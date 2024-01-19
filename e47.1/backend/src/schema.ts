@@ -10,6 +10,7 @@ type Void {
 }
 type Query
 type Mutation
+type Subscription
 `;
 
 const typeDefs: DocumentNode = mergeTypeDefs([root, ...Object.values(schema)]);

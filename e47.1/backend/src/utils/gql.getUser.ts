@@ -9,11 +9,6 @@ dotenv.config();
 
 export const getUser: GetAuthUser = async function (req, res) {
     const cookiesHeader = req?.headers.cookie;
-
-    // if(!cookiesHeader) createGQLError({
-    //     code: "BAD_REQUEST",
-    //     message: "Unauthenticated user",
-    // });
     
     const cookies = cookiesHeader?.split(';').reduce((cookies: any, cookie: any) => {
         const [name, value] = cookie.trim().split('=');
@@ -30,12 +25,11 @@ export const getUser: GetAuthUser = async function (req, res) {
         if(secret){ 
             const decoded = jwt.verify(token, secret?.toString())  as JwtPayload;
             
-            const user = await models.UserModel.find({ _id: decoded._id});
+            const user = await models.UserModel.findOne({ _id: decoded._id});
             
             return user;
         }
     } catch (err) {
-        console.log(err);
         createGQLError({
             code: "BAD_REQUEST",
             message: "Unauthenticated user",
