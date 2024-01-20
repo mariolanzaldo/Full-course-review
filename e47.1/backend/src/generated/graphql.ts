@@ -57,12 +57,6 @@ export type FollowInput = {
   _id?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type FollowNotification = {
-  __typename?: 'FollowNotification';
-  employee: Employee;
-  following: Scalars['Boolean']['output'];
-};
-
 export type LoginInput = {
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
@@ -137,7 +131,7 @@ export type Skill = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  following?: Maybe<FollowNotification>;
+  updatedEmployee?: Maybe<Employee>;
 };
 
 export type UpdateEmployeeInput = {
@@ -258,10 +252,9 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Employee: ResolverTypeWrapper<Employee>;
   FollowInput: FollowInput;
-  FollowNotification: ResolverTypeWrapper<FollowNotification>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   LoginInput: LoginInput;
   LogoutResponse: ResolverTypeWrapper<LogoutResponse>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Skill: ResolverTypeWrapper<Skill>;
@@ -284,10 +277,9 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']['output'];
   Employee: Employee;
   FollowInput: FollowInput;
-  FollowNotification: FollowNotification;
-  Boolean: Scalars['Boolean']['output'];
   LoginInput: LoginInput;
   LogoutResponse: LogoutResponse;
+  Boolean: Scalars['Boolean']['output'];
   Mutation: {};
   Query: {};
   Skill: Skill;
@@ -367,12 +359,6 @@ export type EmployeeResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type FollowNotificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowNotification'] = ResolversParentTypes['FollowNotification']> = {
-  employee?: Resolver<ResolversTypes['Employee'], ParentType, ContextType>;
-  following?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type LogoutResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LogoutResponse'] = ResolversParentTypes['LogoutResponse']> = {
   success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -399,7 +385,7 @@ export type SkillResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  following?: SubscriptionResolver<Maybe<ResolversTypes['FollowNotification']>, "following", ParentType, ContextType>;
+  updatedEmployee?: SubscriptionResolver<Maybe<ResolversTypes['Employee']>, "updatedEmployee", ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -417,7 +403,6 @@ export type VoidResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   Book?: BookResolvers<ContextType>;
   Employee?: EmployeeResolvers<ContextType>;
-  FollowNotification?: FollowNotificationResolvers<ContextType>;
   LogoutResponse?: LogoutResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

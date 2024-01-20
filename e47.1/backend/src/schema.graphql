@@ -18,7 +18,7 @@ type Mutation {
 }
 
 type Subscription {
-  following: FollowNotification
+  updatedEmployee: Employee
 }
 
 type Book {
@@ -51,11 +51,6 @@ type Employee {
 
 type Skill {
   skill: [String]
-}
-
-type FollowNotification {
-  following: Boolean!
-  employee: Employee!
 }
 
 input createUserInput {

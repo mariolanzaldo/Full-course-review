@@ -2,7 +2,7 @@ import { createGQLError } from "../../errors/utils";
 import { ResolverFn, UpdateEmployeeInput } from "../../generated/graphql";
 
 
-export const updateEmployee: ResolverFn<Promise<any>, UpdateEmployeeInput, any, any> = async function( _, {input}, { models , getAuthUser}) {
+export const updateEmployee: ResolverFn<Promise<any>, UpdateEmployeeInput, any, any> = async function( _, {input}, { models , getAuthUser, pubSub}) {
 
     const user = getAuthUser && await getAuthUser();
 
@@ -34,6 +34,10 @@ export const updateEmployee: ResolverFn<Promise<any>, UpdateEmployeeInput, any, 
             );
 
         //TODO: The subscription to send that this employee if a user follows this employee
+
+        pubSub.publish("UPDATED_EMPLOYEE", {
+            updatedEmployee: updatedEmployee,
+        });
 
         return updatedEmployee;
     } catch(error) {

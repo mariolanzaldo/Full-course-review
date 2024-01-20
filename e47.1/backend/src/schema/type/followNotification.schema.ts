@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 
 export const followNotification = gql`
 
-    type FollowNotification {
+    type UpdateEmployee {
         following: Boolean!
         employee: Employee!
     }
